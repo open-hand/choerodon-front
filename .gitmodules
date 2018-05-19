@@ -1,0 +1,6 @@
+[submodule "choerodon-front-iam"]
+	path = choerodon-front-iam
+	url = ../choerodon-front-iam
+[submodule "choerodon-front-devops"]
+	path = choerodon-front-devops
+	url = ../choerodon-front-devops
