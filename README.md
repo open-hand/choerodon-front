@@ -1,6 +1,6 @@
 # choerodon-front
 
-The project is an overall front-end project that combines Choerodon iam and Choerodon devops.
+The project is an overall front-end project that combines Choerodon iam and Choerodon DevOps.
 
 * [choerodon-front-boot](https://github.com/choerodon/choerodon-front-boot)
 * [choerodon-front-iam](https://github.com/choerodon/choerodon-front-iam)
