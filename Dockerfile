@@ -1,4 +1,4 @@
-FROM registry.choerodon.com.cn/tools/frontbase:0.5.0
+FROM registry.cn-hangzhou.aliyuncs.com/choerodon-tools/frontbase:0.5.0
 
 ENV PRO_API_HOST gateway.choerodon.com.cn
 ENV PRO_CLIENT_ID choerodonparent
