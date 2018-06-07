@@ -11,10 +11,9 @@ node-build:
   image: registry.choerodon.com.cn/tools/cifront:0.5.0
   stage: package
   script:
-    - node_config
     - node_module_ci
-    - node_build
-    - clean_cache
+    - node_build devbuild
+    - rm -rf /cache/${CI_PROJECT_NAME}-${CI_PROJECT_ID}-${CI_COMMIT_REF_NAME}-${CI_COMMIT_SHA}
   only:
     - /^feature-.*$/
 
@@ -23,10 +22,9 @@ node-dev-build:
   image: registry.choerodon.com.cn/tools/cifront:0.5.0
   stage: package
   script:
-    - node_config
     - node_module_ci
-    - node_dev_build
-    - cache_dist
+    - node_build build
+    - cp -r dist /cache/${CI_PROJECT_NAME}-${CI_PROJECT_ID}-${CI_COMMIT_REF_NAME}-${CI_COMMIT_SHA}/dist
   only:
     - develop
     - /^release-.*$/
@@ -37,7 +35,7 @@ docker-build:
   stage: build
   script:
     - docker_build
-    - clean_cache
+    - rm -rf /cache/${CI_PROJECT_NAME}-${CI_PROJECT_ID}-${CI_COMMIT_REF_NAME}-${CI_COMMIT_SHA}
     - chart_build
   only:
     - develop
@@ -48,6 +46,10 @@ docker-build:
 .auto_devops: &auto_devops |
   curl -o .auto_devops.sh \
       "${CHOERODON_URL}/devops/ci?token=${Token}&type=front"
+  if [ $? -ne 0 ];then
+    cat .auto_devops.sh
+    exit 1
+  fi
   source .auto_devops.sh
 
   function node_module_ci() {
@@ -60,36 +62,10 @@ docker-build:
     cd boot
   }
 
-  function node_dev_build() {
-    ./node_modules/.bin/gulp start
-    npm run devbuild
-    find dist -name '*.js' | xargs sed -i "s/localhost:version/$CI_COMMIT_TAG/g"
-  }
-
   function node_build() {
     ./node_modules/.bin/gulp start
-    npm run build
+    npm run ${1:-"build"}
     find dist -name '*.js' | xargs sed -i "s/localhost:version/$CI_COMMIT_TAG/g"
-  }
-
-  function chart_build(){ 
-    CHART_PATH=`find . -maxdepth 3 -name Chart.yaml`
-    yq w -i ${CHART_PATH%/*}/values.yaml image.repository ${DOCKER_REGISTRY}/${GROUP_NAME}/${PROJECT_NAME}
-    yq w -i ${CHART_PATH%/*}/values.yaml image.tag ${CI_COMMIT_TAG}
-    helm package ${CHART_PATH%/*} --version ${CI_COMMIT_TAG} --app-version ${CI_COMMIT_TAG}
-    TEMP=${CHART_PATH%/*}
-    FILE_NAME=${TEMP##*/}
-    curl -X POST \
-        -F "token=${Token}" \
-        -F "version=${CI_COMMIT_TAG}" \
-        -F "file=@${FILE_NAME}-${CI_COMMIT_TAG}.tgz" \
-        -F "commit=${CI_COMMIT_SHA}" \
-        -F "image=${DOCKER_REGISTRY}/${GROUP_NAME}/${PROJECT_NAME}:${CI_COMMIT_TAG}" \
-        "${API_GATEWAY}/devops/ci"
-    if [ $? -ne 0 ]; then
-        echo "upload chart error"
-        exit 1
-    fi
   }
 
 before_script:

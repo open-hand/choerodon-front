@@ -17,6 +17,10 @@ preJob:
       password: choerodon
       dbname: iam_service
 
+metrics:
+  path: /prometheus
+  group: nginx
+
 logs:
   parser: nginx
 
