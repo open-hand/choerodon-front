@@ -12,7 +12,7 @@ node-build:
   stage: package
   script:
     - node_module_ci
-    - node_build devbuild
+    - node_build build
     - rm -rf /cache/${CI_PROJECT_NAME}-${CI_PROJECT_ID}-${CI_COMMIT_REF_NAME}-${CI_COMMIT_SHA}
   only:
     - /^feature-.*$/
@@ -25,6 +25,7 @@ node-dev-build:
     - node_module_ci
     - node_build build
     - cp -r dist /cache/${CI_PROJECT_NAME}-${CI_PROJECT_ID}-${CI_COMMIT_REF_NAME}-${CI_COMMIT_SHA}/dist
+    - cp -r node_modules/choerodon-front-boot/structure /cache/${CI_PROJECT_NAME}-${CI_PROJECT_ID}-${CI_COMMIT_REF_NAME}-${CI_COMMIT_SHA}/structure
   only:
     - develop
     - /^release-.*$/
@@ -53,18 +54,23 @@ docker-build:
   source .auto_devops.sh
 
   function node_module_ci() {
+    npm install -registry https://nexus.choerodon.com.cn/repository/choerodon-npm/
     mkdir -p /cache/$CI_PROJECT_NAME-$CI_PROJECT_ID-$CI_COMMIT_REF_NAME-$CI_COMMIT_SHA/
-    cp -fr ./choerodon-front-devops/devops ./choerodon-front-iam
+    mkdir -p /tmp/
+    cp -r ./node_modules/structure/configAuto.py /tmp/
     cd choerodon-front-iam
-    python ./boot/structure/configAuto.py iam devops
+    cp -r ./iam/src/app/iam/config/ /tmp/
+    cd ../choerodon-front-devops
+    cp -r ./devops/src/app/devops/config/ /tmp/
+    cd ../tmp
+    python ./configAuto.py iam devops
     cp -r config.yml /cache/$CI_PROJECT_NAME-$CI_PROJECT_ID-$CI_COMMIT_REF_NAME-$CI_COMMIT_SHA/
-    chmod 777 ./boot/structure/moduleCi.sh && ./boot/structure/moduleCi.sh boot iam devops
-    cd boot
+    cd ..
   }
 
   function node_build() {
-    ./node_modules/.bin/gulp start
-    npm run ${1:-"build"}
+    chmod -R 777 node_modules
+    npm run ${1:-"build"} choerodon-front-iam/iam choerodon-front-devops/devops -registry https://nexus.choerodon.com.cn/repository/choerodon-npm/
     find dist -name '*.js' | xargs sed -i "s/localhost:version/$CI_COMMIT_TAG/g"
   }
 
