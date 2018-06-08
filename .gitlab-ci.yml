@@ -59,11 +59,13 @@ docker-build:
     mkdir -p ./tmp/
     cp -r ./node_modules/choerodon-front-boot/structure/configAuto.py ./tmp/
     mkdir -p ./tmp/iam/src/app/iam/
-    cp -r ./choerodon-front-iam/iam/src/app/iam/config/ ./tmp/iam/src/app/iam/
+    cp -r ./choerodon-front-iam/iam/src/app/iam/config ./tmp/iam/src/app/iam/
     mkdir -p ./tmp/devops/src/app/devops/
-    cp -r ./choerodon-front-devops/devops/src/app/devops/config/ ./tmp/devops/src/app/devops/
+    cp -r ./choerodon-front-devops/devops/src/app/devops/config ./tmp/devops/src/app/devops/
+    mkdir -p ./tmp/agile/src/app/agile/
+    cp -r ./choerodon-front-agile/agile/src/app/agile/config ./tmp/agile/src/app/agile/
     cd ./tmp
-    python ./configAuto.py iam devops
+    python ./configAuto.py iam devops agile
     cp -r config.yml /cache/$CI_PROJECT_NAME-$CI_PROJECT_ID-$CI_COMMIT_REF_NAME-$CI_COMMIT_SHA/
     cd ..
     rm -rf ./tmp
