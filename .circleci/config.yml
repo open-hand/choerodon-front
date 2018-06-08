@@ -16,17 +16,27 @@ jobs:
       - run: git submodule update --init
       - run: cd ~/repo/choerodon-front-devops && git submodule update --init
       - run: cd ~/repo/choerodon-front-iam && git submodule update --init
+      - run: cd ~/repo/choerodon-front-agile && git submodule update --init
       - run: cd ~/repo
       - run: |
-            cp -fr ./choerodon-front-devops/devops ./choerodon-front-iam
-            cd choerodon-front-iam
-            python ./boot/structure/configAuto.py iam devops
-            chmod a+x ./boot/structure/moduleCi.sh
-            ./boot/structure/moduleCi.sh boot iam devops
-      - run: |
-            cd choerodon-front-iam/boot
-            ./node_modules/.bin/gulp start
-            npm run devbuild
+            npm install -registry ${NPM_REPO}
+            mkdir -p /cache/$CI_PROJECT_NAME-$CI_PROJECT_ID-$CI_COMMIT_REF_NAME-$CI_COMMIT_SHA/
+            mkdir -p ./tmp/
+            cp -r ./node_modules/choerodon-front-boot/structure/configAuto.py ./tmp/
+            mkdir -p ./tmp/iam/src/app/iam/
+            cp -r ./choerodon-front-iam/iam/src/app/iam/config ./tmp/iam/src/app/iam/
+            mkdir -p ./tmp/devops/src/app/devops/
+            cp -r ./choerodon-front-devops/devops/src/app/devops/config ./tmp/devops/src/app/devops/
+            mkdir -p ./tmp/agile/src/app/agile/
+            cp -r ./choerodon-front-agile/agile/src/app/agile/config ./tmp/agile/src/app/agile/
+            cd ./tmp
+            python ./configAuto.py iam devops agile
+      - run: 
+          name: Build modules
+          command: |
+            chmod -R 777 node_modules
+            npm run ${1:-"build"} choerodon-front-iam/iam choerodon-front-devops/devops choerodon-front-agile/agile -registry ${NPM_REPO}
+          no_output_timeout: 60m
 
   node_build:
     <<: *default
@@ -38,26 +48,34 @@ jobs:
       - run: git submodule update --init
       - run: cd ~/repo/choerodon-front-devops && git submodule update --init
       - run: cd ~/repo/choerodon-front-iam && git submodule update --init
+      - run: cd ~/repo/choerodon-front-agile && git submodule update --init
       - run: cd ~/repo
       - run: |
-            cp -fr ./choerodon-front-devops/devops ./choerodon-front-iam
-            cd choerodon-front-iam
-            python ./boot/structure/configAuto.py iam devops
-            chmod a+x ./boot/structure/moduleCi.sh
-            cd boot && npm install choerodon-ui -S  && cd ..
-            ./boot/structure/moduleCi.sh boot iam devops
-      - run: |
-            cd choerodon-front-iam/boot
-            ./node_modules/.bin/gulp start
-            npm run build
-          
+            npm install -registry ${NPM_REPO}
+            mkdir -p ./tmp/
+            cp -r ./node_modules/choerodon-front-boot/structure/configAuto.py ./tmp/
+            mkdir -p ./tmp/iam/src/app/iam/
+            cp -r ./choerodon-front-iam/iam/src/app/iam/config ./tmp/iam/src/app/iam/
+            mkdir -p ./tmp/devops/src/app/devops/
+            cp -r ./choerodon-front-devops/devops/src/app/devops/config ./tmp/devops/src/app/devops/
+            mkdir -p ./tmp/agile/src/app/agile/
+            cp -r ./choerodon-front-agile/agile/src/app/agile/config ./tmp/agile/src/app/agile/
+            cd ./tmp
+            python ./configAuto.py iam devops agile
+      - run: 
+          name: Build modules
+          command: |
+            chmod -R 777 node_modules
+            npm run ${1:-"build"} choerodon-front-iam/iam choerodon-front-devops/devops choerodon-front-agile/agile -registry ${NPM_REPO}
+            find dist -name '*.js' | xargs sed -i "s/localhost:version/$CI_COMMIT_TAG/g"
+          no_output_timeout: 60m
+
       - persist_to_workspace:
           root: .
           paths:
-            - choerodon-front-iam/boot/dist
-            - choerodon-front-iam/boot/structure
-            - choerodon-front-iam/boot/structure
-            - choerodon-front-iam/config.yml
+            - dist
+            - node_modules/choerodon-front-boot/structure
+            - tmp/config.yml
             
   docker_build:
     machine: true
@@ -65,8 +83,8 @@ jobs:
       - checkout
       - attach_workspace:
           at: .
-      - run: mv choerodon-front-iam/boot/dist ./dist 
-      - run: mv choerodon-front-iam/config.yml ./config.yml
+      - run: mv tmp/config.yml ./config.yml
+      - run: mv node_modules/choerodon-front-boot/structure ./structure
       - run: |
           sed -i "s/registry\.cn\-hangzhou\.aliyuncs.com\/choerodon-tools/choerodon/g" Dockerfile
           export CI_COMMIT_TAG=$CIRCLE_TAG
