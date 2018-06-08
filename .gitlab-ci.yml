@@ -56,16 +56,17 @@ docker-build:
   function node_module_ci() {
     npm install -registry https://nexus.choerodon.com.cn/repository/choerodon-npm/
     mkdir -p /cache/$CI_PROJECT_NAME-$CI_PROJECT_ID-$CI_COMMIT_REF_NAME-$CI_COMMIT_SHA/
-    mkdir -p /tmp/
-    cp -r ./node_modules/structure/configAuto.py /tmp/
-    cd choerodon-front-iam
-    cp -r ./iam/src/app/iam/config/ /tmp/
-    cd ../choerodon-front-devops
-    cp -r ./devops/src/app/devops/config/ /tmp/
-    cd ../tmp
+    mkdir -p ./tmp/
+    cp -r ./node_modules/choerodon-front-boot/structure/configAuto.py ./tmp/
+    mkdir -p ./tmp/iam/src/app/iam/
+    cp -r ./choerodon-front-iam/iam/src/app/iam/config/ ./tmp/iam/src/app/iam/
+    mkdir -p ./tmp/devops/src/app/devops/
+    cp -r ./choerodon-front-devops/devops/src/app/devops/config/ ./tmp/devops/src/app/devops/
+    cd ./tmp
     python ./configAuto.py iam devops
     cp -r config.yml /cache/$CI_PROJECT_NAME-$CI_PROJECT_ID-$CI_COMMIT_REF_NAME-$CI_COMMIT_SHA/
     cd ..
+    rm -rf ./tmp
   }
 
   function node_build() {
