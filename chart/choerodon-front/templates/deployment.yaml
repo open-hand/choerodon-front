@@ -1,20 +1,21 @@
 apiVersion: apps/v1beta2
 kind: Deployment
 metadata:
-  annotations:
-{{ include "service.annotations.standard" . | indent 4 }}
   name: {{ .Release.Name }}
   labels:
 {{ include "service.labels.standard" . | indent 4 }}
+{{ include "service.logging.deployment.label" . | indent 4 }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-{{ include "service.match.labels" . | indent 6 }}
+{{ include "service.labels.standard" . | indent 6 }}
   template:
     metadata:
       labels:
 {{ include "service.labels.standard" . | indent 8 }}
+      annotations:
+{{ include "service.monitoring.pod.annotations" . | indent 8 }}
     spec:
       containers:
         - name: {{ .Release.Name }}
@@ -33,10 +34,3 @@ spec:
               protocol: TCP
           resources:
 {{ toYaml .Values.resources | indent 12 }}
-      dnsPolicy: ClusterFirst
-      imagePullSecrets:
-      - name: gitlab-image-secret
-      restartPolicy: Always
-      schedulerName: default-scheduler
-      securityContext: {}
-      terminationGracePeriodSeconds: 30

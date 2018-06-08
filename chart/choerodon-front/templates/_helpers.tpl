@@ -1,17 +1,12 @@
-{{/* vim: set filetype=mustache: */}}
-{{- /*
-service.labels.standard prints the standard service Helm labels.
-The standard labels are frequently used in metadata.
-*/ -}}
 {{- define "service.labels.standard" -}}
 choerodon.io/release: {{ .Release.Name | quote }}
-choerodon.io/application: {{ .Chart.Name | quote }}
-choerodon.io/version: {{ .Chart.Version | quote }}
 {{- end -}}
 
-{{- define "service.match.labels" -}}
-choerodon.io/release: {{ .Release.Name | quote }}
+{{- define "service.logging.deployment.label" -}}
+choerodon.io/logs-parser: {{ .Values.logs.parser | quote }}
 {{- end -}}
-{{- define "service.annotations.standard" -}}
-choerodon.io/logs-parser: {{ .Values.logs.parser | default "none" | quote }}
+
+{{- define "service.monitoring.pod.annotations" -}}
+choerodon.io/metrics-group: {{ .Values.metrics.group | quote }}
+choerodon.io/metrics-path: {{ .Values.metrics.path | quote }}
 {{- end -}}

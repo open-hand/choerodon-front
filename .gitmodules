@@ -4,3 +4,6 @@
 [submodule "choerodon-front-devops"]
 	path = choerodon-front-devops
 	url = ../choerodon-front-devops
+[submodule "choerodon-front-agile"]
+	path = choerodon-front-agile
+	url = ../choerodon-front-agile

@@ -1,0 +1,17 @@
+{
+  "name": "choerodon-front",
+  "version": "0.6.0",
+  "description": "Choerodon font",
+  "main": "",
+  "scripts": {
+    "start": "choerodon-front-boot start --config ./config.js",
+    "build": "choerodon-front-boot build --config ./config.js"
+  },
+  "contributors": [
+    "choerodon"
+  ],
+  "license": "ISC",
+  "dependencies": {
+    "choerodon-front-boot": "0.6.1"
+  }
+}
