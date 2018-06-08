@@ -46,7 +46,7 @@ docker-build:
 
 .auto_devops: &auto_devops |
   curl -o .auto_devops.sh \
-      "${CHOERODON_URL}/devops/ci?token=${Token}&type=front"
+      "${CHOERODON_URL}/devops/ci?token=${Token}"
   if [ $? -ne 0 ];then
     cat .auto_devops.sh
     exit 1
@@ -75,6 +75,12 @@ docker-build:
     chmod -R 777 node_modules
     npm run ${1:-"build"} choerodon-front-iam/iam choerodon-front-devops/devops choerodon-front-agile/agile -registry https://nexus.choerodon.com.cn/repository/choerodon-npm/
     find dist -name '*.js' | xargs sed -i "s/localhost:version/$CI_COMMIT_TAG/g"
+  }
+
+  function docker_build(){
+    cp -r /cache/${CI_PROJECT_NAME}-${CI_PROJECT_ID}-${CI_COMMIT_REF_NAME}-${CI_COMMIT_SHA}/* ${1:-"."}
+    docker build --pull -t ${DOCKER_REGISTRY}/${GROUP_NAME}/${PROJECT_NAME}:${CI_COMMIT_TAG} ${1:-"."}
+    docker push ${DOCKER_REGISTRY}/${GROUP_NAME}/${PROJECT_NAME}:${CI_COMMIT_TAG}
   }
 
 before_script:
