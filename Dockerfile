@@ -13,7 +13,7 @@ ADD dist /usr/share/nginx/html
 COPY parent-structure/parent-enterpoint.sh /usr/share/nginx/html
 COPY config.yml /usr/share/nginx/html
 COPY structure/sql.py /usr/share/nginx/html
-RUN chmod 777 /usr/share/nginx/html/parent-structure.sh
+RUN chmod 777 /usr/share/nginx/html/parent-enterpoint.sh
 ENTRYPOINT ["/usr/share/nginx/html/parent-structure.sh"]
 CMD ["nginx", "-g", "daemon off;"]
 
