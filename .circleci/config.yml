@@ -76,7 +76,7 @@ jobs:
             - dist
             - node_modules/choerodon-front-boot/structure
             - tmp/config.yml
-            
+
   docker_build:
     machine: true
     steps:
