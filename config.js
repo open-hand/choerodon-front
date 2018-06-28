@@ -3,6 +3,7 @@ const config = {
     clientId: 'localhost', // 必须填入响应的客户端（本地开发）
     titlename: 'Choerodon', //项目页面的title名称
     favicon: 'favicon.ico', //项目页面的icon图片名称
+    fileServer: 'http://minio.staging.saas.hand-china.com',
     theme: {
         'primary-color': '#3F51B5',
     },
