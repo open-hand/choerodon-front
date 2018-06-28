@@ -9,6 +9,7 @@ ENV PRO_COOKIE_SERVER choerodon.com.cn
 ENV PRO_HTTP http
 
 RUN echo "Asia/shanghai" > /etc/timezone;
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 ADD dist /usr/share/nginx/html
 COPY parent-structure/parent-enterpoint.sh /usr/share/nginx/html
 COPY config.yml /usr/share/nginx/html
