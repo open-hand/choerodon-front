@@ -1,5 +1,3 @@
-# Quick start
-
 部署文件的渲染模板，我们下文将定义一些变量，helm执行时会将变量渲染进模板文件中。
 
 ## _helpers.tpl
@@ -44,15 +42,17 @@ choerodon.io/logs-parser: {{ .Values.logs.parser | quote }}
 
 参数名 | 含义 
 --- | --- 
-preJob.preConfig.mysql{}|初始化配置所需manager_service数据库信息
-env.open.PRO_API_HOST|api地址
-env.open.PRO_DEVOPS_HOST|devops service地址
-env.open.PRO_CLIENT_ID|client id
-env.open.PRO_TITLE_NAME|页面显示标题
-env.open.PRO_HEADER_TITLE_NAME|页面header标题
-env.open.PRO_HTTP|使用协议
-env.open.PRO_FILE_SERVER|文件上传服务
-env.open.PRO_AGILE_HOST|敏捷文件地址
-service.enable|创建service对象
-ingress.enable|创建ingress对象
-ingress.host|域名地址，此处不能带http://
+service.enable | 是否创建service
+ingress.enable | 是否创建ingress
+persistence.enabled | 是否启用持久化存储
+persistence.existingClaim | 绑定的pvc名称
+preJob.preConfig.mysql | 初始化菜单数据库信息
+env.open.PRO_API_HOST | api地址
+env.open.PRO_CLIENT_ID | client id
+env.open.PRO_LOCAL | 是否本地开发 false
+env.open.PRO_TITLE_NAME | 页面显示标题
+env.open.PRO_HEADER_TITLE_NAME | 页面header标题
+env.open.PRO_DEVOPS_HOST | devops service地址
+env.open.PRO_FILE_SERVER | 文件上传服务地址
+env.open.PRO_AGILE_HOST | 敏捷文件地址
+env.open.PRO_HTTP | 使用协议 http
