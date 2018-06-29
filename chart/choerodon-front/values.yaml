@@ -45,6 +45,7 @@ env:
     PRO_HEADER_TITLE_NAME: Choerodon
     PRO_COOKIE_SERVER: choerodon.com.cn
     PRO_HTTP: http
+    PRO_FILE_SERVER: http://minio.choerodon.com.cn
 
     
 resources: 
