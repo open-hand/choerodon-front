@@ -3,7 +3,7 @@
 	url = ../choerodon-front-iam
 [submodule "choerodon-front-devops"]
 	path = choerodon-front-devops
-	url = ../choerodon-front-devops
+	url = ../../choerodon-c7ncd/choerodon-front-devops.git
 [submodule "choerodon-front-agile"]
 	path = choerodon-front-agile
-	url = ../choerodon-front-agile
+	url = ../../choerodon-agile/choerodon-front-agile

@@ -35,5 +35,6 @@ spec:
         - '
           cd /usr/share/nginx/html;
           python sql.py;
+          python initDir.py
           '
       restartPolicy: Never
