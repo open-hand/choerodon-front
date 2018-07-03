@@ -69,8 +69,7 @@ docker-build:
     python ./configAuto.py iam devops agile
     cp -r config.yml /cache/$CI_PROJECT_NAME-$CI_PROJECT_ID-$CI_COMMIT_REF_NAME-$CI_COMMIT_SHA/
     cd ..
-    cp -r ./choerodon-front-devops/devops/devops-structure/dirMenu.yml /cache/$CI_PROJECT_NAME-$CI_PROJECT_ID-$CI_COMMIT_REF_NAME-$CI_COMMIT_SHA/
-    cp -r ./choerodon-front-devops/devops/devops-structure/initDir.py /cache/$CI_PROJECT_NAME-$CI_PROJECT_ID-$CI_COMMIT_REF_NAME-$CI_COMMIT_SHA/
+    cp -r ./choerodon-front-devops/devops/devops-structure/deleteMenu.py /cache/$CI_PROJECT_NAME-$CI_PROJECT_ID-$CI_COMMIT_REF_NAME-$CI_COMMIT_SHA/
     rm -rf ./tmp
   }
 
