@@ -1,9 +1,9 @@
 [submodule "choerodon-front-iam"]
 	path = choerodon-front-iam
-	url = ../choerodon-front-iam
+	url = https://github.com/choerodon/choerodon-front-iam.git
 [submodule "choerodon-front-devops"]
 	path = choerodon-front-devops
-	url = ../../choerodon-c7ncd/choerodon-front-devops.git
+	url = https://github.com/choerodon/choerodon-front-devops.git
 [submodule "choerodon-front-agile"]
 	path = choerodon-front-agile
-	url = ../../choerodon-agile/choerodon-front-agile
+	url = https://github.com/choerodon/choerodon-front-agile.git
