@@ -6,4 +6,4 @@
 	url = https://github.com/choerodon/choerodon-front-devops.git
 [submodule "choerodon-front-agile"]
 	path = choerodon-front-agile
-	url = https://github.com/choerodon/choerodon-front-iam.git
+	url = https://github.com/choerodon/choerodon-front-agile.git
