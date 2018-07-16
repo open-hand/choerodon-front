@@ -70,6 +70,7 @@ docker-build:
     python ./configAuto.py ${modules[@]}
     cp -r config.yml /cache/$CI_PROJECT_NAME-$CI_PROJECT_ID-$CI_COMMIT_REF_NAME-$CI_COMMIT_SHA/
     rm -rf ./tmp
+    cd ..
   }
 
   function node_build() {
