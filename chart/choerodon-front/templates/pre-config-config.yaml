@@ -35,6 +35,5 @@ spec:
         - '
           cd /usr/share/nginx/html;
           python sql.py;
-          python deleteMenu.py;
           '
       restartPolicy: Never
