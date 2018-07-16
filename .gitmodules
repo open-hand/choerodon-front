@@ -10,3 +10,6 @@
 [submodule "choerodon-front-test-manager"]
 	path = choerodon-front-test-manager
 	url = ../../choerodon-c7ntest/choerodon-front-test-manager
+[submodule "choerodon-front-wiki"]
+	path = choerodon-front-wiki
+	url = ../../choerodon-c7nkb/choerodon-front-wiki

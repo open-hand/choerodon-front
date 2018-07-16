@@ -23,3 +23,5 @@ sh.sh
 .cache
 /config.yml
 pythonsql.py
+
+/tmp
