@@ -29,11 +29,13 @@ spec:
           value: {{ .Values.preJob.preConfig.mysql.password }}
         - name: DB_NAME
           value: {{ .Values.preJob.preConfig.mysql.dbname }}
+        - name: UP_ATTRS
+          value: {{ .Values.preJob.preConfig.mysql.upattrs }}
         command:
         - /bin/sh
         - -c
         - '
           cd /usr/share/nginx/html;
-          python sql.py;
+          python sql.py -d {{ .Values.preJob.preConfig.mysql.enabledelete }};
           '
       restartPolicy: Never
