@@ -10,7 +10,7 @@ There are a number of modules in Choerodon Front, here is a quick overview:
 * [choerodon-front-iam](https://github.com/choerodon/choerodon-front-iam) - The project is responsible for the IAM and system configuration of the Choerodon Platform, and provides a better user experience through the rich interface.
 * [choerodon-front-devops](https://github.com/choerodon/choerodon-front-devops) - The project is responsible for the continuous delivery of all homepages and provides users with a better user experience through a rich interface.
 * [choerodon-front-agile](https://github.com/choerodon/choerodon-front-agile) - Agile Front is the core front service of Choerodon. The service is responsible for Agile process management and providing users with a better user experience through rich display.
-* [choerodon-front-wiki](https://github.com/choerodon/choerodon-front-wiki) -
+* [choerodon-front-wiki](https://github.com/choerodon/choerodon-front-wiki) - This project looks at the wiki space of the organization and project, as well as features such as creating wiki space.
 * [choerodon-front-test-manager](https://github.com/choerodon/choerodon-front-test-manager) - 
 
 ## To get the code
