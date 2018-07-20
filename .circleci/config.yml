@@ -17,6 +17,8 @@ jobs:
       - run: cd ~/repo/choerodon-front-devops && git submodule update --init
       - run: cd ~/repo/choerodon-front-iam && git submodule update --init
       - run: cd ~/repo/choerodon-front-agile && git submodule update --init
+      - run: cd ~/repo/choerodon-front-test-manager && git submodule update --init
+      - run: cd ~/repo/choerodon-front-wiki && git submodule update --init
       - run: cd ~/repo
       - run: |
             npm install -registry ${NPM_REPO}
@@ -51,6 +53,8 @@ jobs:
       - run: cd ~/repo/choerodon-front-devops && git submodule update --init
       - run: cd ~/repo/choerodon-front-iam && git submodule update --init
       - run: cd ~/repo/choerodon-front-agile && git submodule update --init
+      - run: cd ~/repo/choerodon-front-test-manager && git submodule update --init
+      - run: cd ~/repo/choerodon-front-wiki && git submodule update --init
       - run: cd ~/repo
       - run: |
             npm install -registry ${NPM_REPO}
