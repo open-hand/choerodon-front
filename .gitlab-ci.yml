@@ -59,23 +59,24 @@ docker-build:
     mkdir -p /cache/$CI_PROJECT_NAME-$CI_PROJECT_ID-$CI_COMMIT_REF_NAME-$CI_COMMIT_SHA/
     mkdir -p ./tmp/
     cp -r ./node_modules/choerodon-front-boot/structure/configAuto.py ./tmp/
-    mkdir -p ./tmp/iam/src/app/iam/
-    cp -r ./choerodon-front-iam/iam/src/app/iam/config ./tmp/iam/src/app/iam/
-    mkdir -p ./tmp/devops/src/app/devops/
-    cp -r ./choerodon-front-devops/devops/src/app/devops/config ./tmp/devops/src/app/devops/
-    mkdir -p ./tmp/agile/src/app/agile/
-    cp -r ./choerodon-front-agile/agile/src/app/agile/config ./tmp/agile/src/app/agile/
+    modules=(iam devops agile testManager wiki)
+    folers=(choerodon-front-iam choerodon-front-devops choerodon-front-agile choerodon-front-test-manager choerodon-front-wiki)
+    for i in "${!modules[@]}"; 
+    do 
+      mkdir -p ./tmp/${modules[$i]}/src/app/${modules[$i]}/
+      cp -r ./${folers[$i]}/${modules[$i]}/src/app/${modules[$i]}/config ./tmp/${modules[$i]}/src/app/${modules[$i]}/
+    done
     cd ./tmp
-    python ./configAuto.py iam devops agile
+    python ./configAuto.py ${modules[@]}
     cp -r config.yml /cache/$CI_PROJECT_NAME-$CI_PROJECT_ID-$CI_COMMIT_REF_NAME-$CI_COMMIT_SHA/
-    cd ..
-    cp -r ./choerodon-front-devops/devops/devops-structure/deleteMenu.py /cache/$CI_PROJECT_NAME-$CI_PROJECT_ID-$CI_COMMIT_REF_NAME-$CI_COMMIT_SHA/
     rm -rf ./tmp
+    cd ..
   }
 
   function node_build() {
     chmod -R 777 node_modules
-    npm run ${1:-"build"} choerodon-front-iam/iam choerodon-front-devops/devops choerodon-front-agile/agile -registry https://nexus.choerodon.com.cn/repository/choerodon-npm/
+    modules=(choerodon-front-iam/iam choerodon-front-devops/devops choerodon-front-agile/agile choerodon-front-test-manager/testManager choerodon-front-wiki/wiki)
+    npm run ${1:-"build"} ${modules[@]} -registry https://nexus.choerodon.com.cn/repository/choerodon-npm/
     find dist -name '*.js' | xargs sed -i "s/localhost:version/$CI_COMMIT_TAG/g"
   }
 

@@ -3,7 +3,13 @@
 	url = ../choerodon-front-iam
 [submodule "choerodon-front-devops"]
 	path = choerodon-front-devops
-	url = ../../choerodon-c7ncd/choerodon-front-devops.git
+	url = ../../choerodon-c7ncd/choerodon-front-devops
 [submodule "choerodon-front-agile"]
 	path = choerodon-front-agile
 	url = ../../choerodon-agile/choerodon-front-agile
+[submodule "choerodon-front-test-manager"]
+	path = choerodon-front-test-manager
+	url = ../../choerodon-c7ntest/choerodon-front-test-manager
+[submodule "choerodon-front-wiki"]
+	path = choerodon-front-wiki
+	url = ../../choerodon-c7nkb/choerodon-front-wiki
