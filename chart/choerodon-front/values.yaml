@@ -16,6 +16,8 @@ preJob:
       username: root
       password: choerodon
       dbname: iam_service
+      enabledelete: true
+      upattrs: sort
 
 metrics:
   path: /prometheus
