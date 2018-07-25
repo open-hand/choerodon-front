@@ -7,9 +7,6 @@
 [submodule "choerodon-front-agile"]
 	path = choerodon-front-agile
 	url = https://github.com/choerodon/choerodon-front-agile.git
-[submodule "choerodon-front-agile"]
-	path = choerodon-front-agile
-	url = https://github.com/choerodon/choerodon-front-agile.git
 [submodule "choerodon-front-test-manager"]
 	path = choerodon-front-test-manager
 	url = https://github.com/choerodon/choerodon-front-test-manager.git
