@@ -9,6 +9,10 @@ const config = {
     },
     cookieServer: '', //子域名token共享
     server: 'http://api.choerodon.com.cn',
+    dashboard: {
+        iam: 'src/app/iam/dashboard/*',
+        testManager: 'src/app/testManager/dashboard/*'
+    },
 };
 
 module.exports = config;
