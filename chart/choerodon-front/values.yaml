@@ -19,10 +19,6 @@ preJob:
       enabledelete: true
       upattrs: sort
 
-metrics:
-  path: /prometheus
-  group: nginx
-
 logs:
   parser: nginx
 

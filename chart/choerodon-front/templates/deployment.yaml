@@ -14,8 +14,6 @@ spec:
     metadata:
       labels:
 {{ include "service.labels.standard" . | indent 8 }}
-      annotations:
-{{ include "service.monitoring.pod.annotations" . | indent 8 }}
     spec:
       containers:
         - name: {{ .Release.Name }}
