@@ -38,5 +38,6 @@ spec:
           cd /usr/share/nginx/html;
           python sql.py -d {{ .Values.preJob.preConfig.mysql.enabledelete }};
           python initDir.py;
+          python dashboard.py -o sql
           '
       restartPolicy: Never
