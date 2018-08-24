@@ -1,15 +1,15 @@
 [submodule "choerodon-front-iam"]
 	path = choerodon-front-iam
-	url = https://github.com/choerodon/choerodon-front-iam.git
+	url = ../choerodon-front-iam.git
 [submodule "choerodon-front-devops"]
 	path = choerodon-front-devops
-	url = https://github.com/choerodon/choerodon-front-devops.git
+	url = ../choerodon-front-devops.git
 [submodule "choerodon-front-agile"]
 	path = choerodon-front-agile
-	url = https://github.com/choerodon/choerodon-front-agile.git
+	url = ../choerodon-front-agile.git
 [submodule "choerodon-front-test-manager"]
 	path = choerodon-front-test-manager
-	url = https://github.com/choerodon/choerodon-front-test-manager.git
+	url = ../choerodon-front-test-manager.git
 [submodule "choerodon-front-wiki"]
 	path = choerodon-front-wiki
-	url = https://github.com/choerodon/choerodon-front-wiki.git
+	url = ../choerodon-front-wiki.git
