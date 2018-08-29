@@ -1,4 +1,4 @@
-image: registry.choerodon.com.cn/tools/cibase:0.5.0
+image: registry.cn-hangzhou.aliyuncs.com/choerodon-tools/cifront:0.6.0
 
 stages:
   - package
@@ -7,8 +7,7 @@ stages:
 variables:
   GIT_SUBMODULE_STRATEGY: recursive
 
-node-build:
-  image: registry.choerodon.com.cn/tools/cifront:0.5.0
+node-dev-build:
   stage: package
   script:
     - node_module_ci
@@ -17,8 +16,10 @@ node-build:
     - cp -r node_modules/choerodon-front-boot/structure /cache/${CI_PROJECT_NAME}-${CI_PROJECT_ID}-${CI_COMMIT_REF_NAME}-${CI_COMMIT_SHA}/structure
     - cp -r parent-structure /cache/${CI_PROJECT_NAME}-${CI_PROJECT_ID}-${CI_COMMIT_REF_NAME}-${CI_COMMIT_SHA}/parent-structure
 
+
 docker-build:
   stage: build
+  image: registry.cn-hangzhou.aliyuncs.com/choerodon-tools/cibase:0.6.0
   script:
     - docker_build
     - rm -rf /cache/${CI_PROJECT_NAME}-${CI_PROJECT_ID}-${CI_COMMIT_REF_NAME}-${CI_COMMIT_SHA}
@@ -26,16 +27,14 @@ docker-build:
 
 
 .auto_devops: &auto_devops |
-  curl -o .auto_devops.sh \
-      "${CHOERODON_URL}/devops/ci?token=${Token}"
-  if [ $? -ne 0 ];then
+  http_status_code=`curl -o .auto_devops.sh -s -m 10 --connect-timeout 10 -w %{http_code} "${CHOERODON_URL}/devops/ci?token=${Token}&type=front"`
+  if [ "$http_status_code" != "200" ]; then
     cat .auto_devops.sh
     exit 1
   fi
   source .auto_devops.sh
 
   function node_module_ci() {
-    pip install pymysql
     npm install -registry https://nexus.choerodon.com.cn/repository/choerodon-npm/
     mkdir -p /cache/$CI_PROJECT_NAME-$CI_PROJECT_ID-$CI_COMMIT_REF_NAME-$CI_COMMIT_SHA/
     mkdir -p ./tmp/
