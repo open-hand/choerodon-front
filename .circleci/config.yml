@@ -1,50 +1,9 @@
 default: &default
   docker:
-  - image: choerodon/cifront:0.5.0
+  - image: choerodon/cifront:0.6.0
 
 version: 2
 jobs:
-  node_build_dev:
-    <<: *default
-
-    working_directory: ~/repo
-    environment:
-      CI_PROJECT_PATH: $CIRCLE_PROJECT_REPONAME
-    
-    steps:
-      - checkout
-      - run: git submodule update --init
-      - run: cd ~/repo/choerodon-front-devops && git submodule update --init
-      - run: cd ~/repo/choerodon-front-iam && git submodule update --init
-      - run: cd ~/repo/choerodon-front-agile && git submodule update --init
-      - run: cd ~/repo/choerodon-front-test-manager && git submodule update --init
-      - run: cd ~/repo/choerodon-front-wiki && git submodule update --init
-      - run: cd ~/repo
-      - run: |
-            pip install pymysql
-            npm install -registry ${NPM_REPO}
-            mkdir -p /cache/$CI_PROJECT_NAME-$CI_PROJECT_ID-$CI_COMMIT_REF_NAME-$CI_COMMIT_SHA/
-            mkdir -p ./tmp/
-            cp -r ./node_modules/choerodon-front-boot/structure/configAuto.py ./tmp/
-            cp -r ./node_modules/choerodon-front-boot/structure/dashboard.py ./tmp/
-            modules=(iam devops agile testManager wiki)
-            folers=(choerodon-front-iam choerodon-front-devops choerodon-front-agile choerodon-front-test-manager choerodon-front-wiki)
-            for i in "${!modules[@]}"; 
-            do 
-              mkdir -p ./tmp/${modules[$i]}/src/app/${modules[$i]}/
-              cp -r ./${folers[$i]}/${modules[$i]}/src/app/${modules[$i]}/config ./tmp/${modules[$i]}/src/app/${modules[$i]}/
-            done
-            cd ./tmp
-            python ./configAuto.py ${modules[@]}
-            python ./dashboard.py  -o yml -m iam testManager
-      - run: 
-          name: Build modules
-          command: |
-            chmod -R 777 node_modules
-            modules=(choerodon-front-iam/iam choerodon-front-devops/devops choerodon-front-agile/agile choerodon-front-test-manager/testManager choerodon-front-wiki/wiki)
-            npm run ${1:-"build"} ${modules[@]} -registry ${NPM_REPO}
-          no_output_timeout: 60m
-
   node_build:
     <<: *default
 
@@ -60,7 +19,6 @@ jobs:
       - run: cd ~/repo/choerodon-front-wiki && git submodule update --init
       - run: cd ~/repo
       - run: |
-            pip install pymysql
             npm install -registry ${NPM_REPO}
             mkdir -p ./tmp/
             cp -r ./node_modules/choerodon-front-boot/structure/configAuto.py ./tmp/
@@ -81,7 +39,7 @@ jobs:
             chmod -R 777 node_modules
             modules=(choerodon-front-iam/iam choerodon-front-devops/devops choerodon-front-agile/agile choerodon-front-test-manager/testManager choerodon-front-wiki/wiki)
             npm run ${1:-"build"} ${modules[@]} -registry ${NPM_REPO}
-            find dist -name '*.js' | xargs sed -i "s/localhost:version/$CI_COMMIT_TAG/g"
+            find dist -name '*.js' | xargs sed -i "s/localhost:version/$CIRCLE_TAG/g"
           no_output_timeout: 60m
 
       - persist_to_workspace:
@@ -103,23 +61,21 @@ jobs:
       - run: mv node_modules/choerodon-front-boot/structure ./structure
       - run: |
           sed -i "s/registry\.cn\-hangzhou\.aliyuncs.com\/choerodon-tools/choerodon/g" Dockerfile
-          export CI_COMMIT_TAG=$CIRCLE_TAG
           docker login -u ${REGISTRY_USER} -p ${REGISTRY_PASSWORD}
-          docker build --pull -t ${DOCKER_GROUP_NAME}/${CIRCLE_PROJECT_REPONAME}:${CI_COMMIT_TAG} .
-          docker push ${DOCKER_GROUP_NAME}/${CIRCLE_PROJECT_REPONAME}:${CI_COMMIT_TAG}
+          docker build --pull -t ${DOCKER_GROUP_NAME}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_TAG} .
+          docker push ${DOCKER_GROUP_NAME}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_TAG}
 
   helm_chart_build:
     docker:
-    - image: choerodon/cibase:0.5.0
+    - image: choerodon/cibase:0.6.0
     steps:
       - checkout
       - run: |
-          export CI_COMMIT_TAG=$(GetVersion)
           CHART_PATH=`find . -name Chart.yaml`
           yq w -i ${CHART_PATH%/*}/values.yaml image.repository ${DOCKER_GROUP_NAME}/${CIRCLE_PROJECT_REPONAME}
-          yq w -i ${CHART_PATH%/*}/values.yaml image.tag ${CI_COMMIT_TAG}
+          yq w -i ${CHART_PATH%/*}/values.yaml image.tag ${CIRCLE_TAG}
           helm repo add choerodon "${CHART_REPOSITORY}/${CHART_ORGANIZATION}/${CHART_PROJECT}/"
-          helm push --username ${HELM_USER} --password ${HELM_PASSWORD} ${CHART_PATH%/*} --version ${CI_COMMIT_TAG} choerodon
+          helm push --username ${HELM_USER} --password ${HELM_PASSWORD} ${CHART_PATH%/*} --version ${CIRCLE_TAG} choerodon
 
 workflows:
   version: 2
@@ -156,12 +112,3 @@ workflows:
               only:
                 - /^release-.*$/
                 - /^hotfix-.*$/
-
-  develop:
-    jobs:
-      - node_build_dev:
-          context: org-global
-          filters:
-            branches:
-              only: 
-               - /^.*$/
