@@ -50,7 +50,7 @@ docker-build:
     done
     cd ./tmp
     python ./configAuto.py ${modules[@]}
-    python ./dashboard.py  -o yml -m iam testManager
+    python ./dashboard.py  -o yml -m iam testManager agile
     cp -r config.yml /cache/$CI_PROJECT_NAME-$CI_PROJECT_ID-$CI_COMMIT_REF_NAME-$CI_COMMIT_SHA/
     cp -r dashboard.yml /cache/$CI_PROJECT_NAME-$CI_PROJECT_ID-$CI_COMMIT_REF_NAME-$CI_COMMIT_SHA/
     rm -rf ./tmp
