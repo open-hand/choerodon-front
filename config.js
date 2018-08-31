@@ -11,7 +11,8 @@ const config = {
     server: 'http://api.choerodon.com.cn',
     dashboard: {
         iam: 'choerodon-front-iam/iam/src/app/iam/dashboard/*',
-        testManager: 'choerodon-front-test-manager/testManager/src/app/testManager/dashboard/*'
+        testManager: 'choerodon-front-test-manager/testManager/src/app/testManager/dashboard/*',
+        agile: 'choerodon-front-agile/agile/src/app/agile/dashboard/*'
     },
 };
 

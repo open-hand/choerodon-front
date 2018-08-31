@@ -36,7 +36,7 @@ jobs:
             done
             cd ./tmp
             python ./configAuto.py ${modules[@]}
-            python ./dashboard.py  -o yml -m iam testManager
+            python ./dashboard.py  -o yml -m iam testManager agile
       - run: 
           name: Build modules
           command: |
@@ -74,7 +74,7 @@ jobs:
             done
             cd ./tmp
             python ./configAuto.py ${modules[@]}
-            python ./dashboard.py  -o yml -m iam testManager
+            python ./dashboard.py  -o yml -m iam testManager agile
       - run: 
           name: Build modules
           command: |
