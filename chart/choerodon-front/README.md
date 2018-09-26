@@ -58,3 +58,4 @@ env.open.PRO_DEVOPS_HOST | devops service地址
 env.open.PRO_FILE_SERVER | 文件上传服务地址
 env.open.PRO_AGILE_HOST | 敏捷文件地址
 env.open.PRO_HTTP | 使用协议 http
+env.open.PRO_WEBSOCKET_SERVER | websocket 地址

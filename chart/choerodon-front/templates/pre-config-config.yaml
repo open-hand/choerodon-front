@@ -9,7 +9,7 @@ metadata:
 {{ include "service.labels.standard" . | indent 4 }}
 spec:
   backoffLimit: 1
-  activeDeadlineSeconds: 120
+  activeDeadlineSeconds: 360
   template:
     metadata:
       name: {{ .Release.Name }}-init-config
@@ -36,8 +36,8 @@ spec:
         - -c
         - '
           cd /usr/share/nginx/html;
-          python sql.py -d {{ .Values.preJob.preConfig.mysql.enabledelete }};
+          python ./menu/__init__.py -o sql -d {{ .Values.preJob.preConfig.mysql.enabledelete }};
           python initDir.py;
-          python dashboard.py -o sql
+          python ./dashboard/__init__.py -o sql
           '
       restartPolicy: Never
