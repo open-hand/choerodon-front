@@ -38,7 +38,7 @@ docker-build:
     npm install -registry https://nexus.choerodon.com.cn/repository/choerodon-npm/
     mkdir -p /cache/$CI_PROJECT_NAME-$CI_PROJECT_ID-$CI_COMMIT_REF_NAME-$CI_COMMIT_SHA/
     mkdir -p ./tmp/
-    cp -r ./node_modules/choerodon-front-boot/structure ./tmp/
+    cp -r ./node_modules/choerodon-front-boot/structure/* ./tmp/structure
     modules=(iam devops agile testManager wiki)
     folers=(choerodon-front-iam choerodon-front-devops choerodon-front-agile choerodon-front-test-manager choerodon-front-wiki)
     for i in "${!modules[@]}"; 
@@ -48,7 +48,7 @@ docker-build:
     done
     cd ./tmp
     python ./structure/menu/__init__.py -o yml -m ${modules[@]}
-    python ./structure/dashboard/__init__.py. -o yml -m iam agile testManager wiki
+    python ./structure/dashboard/__init__.py. -o yml -m iam devops agile testManager wiki
     cp -r menu.yml /cache/$CI_PROJECT_NAME-$CI_PROJECT_ID-$CI_COMMIT_REF_NAME-$CI_COMMIT_SHA/
     cp -r dashboard.yml /cache/$CI_PROJECT_NAME-$CI_PROJECT_ID-$CI_COMMIT_REF_NAME-$CI_COMMIT_SHA/
     rm -rf ./tmp
