@@ -37,7 +37,7 @@ docker-build:
   function node_module_ci() {
     npm install -registry https://nexus.choerodon.com.cn/repository/choerodon-npm/
     mkdir -p /cache/$CI_PROJECT_NAME-$CI_PROJECT_ID-$CI_COMMIT_REF_NAME-$CI_COMMIT_SHA/
-    mkdir -p ./tmp/
+    mkdir -p ./tmp/structure/
     cp -r ./node_modules/choerodon-front-boot/structure/* ./tmp/structure
     modules=(iam devops agile testManager wiki)
     folers=(choerodon-front-iam choerodon-front-devops choerodon-front-agile choerodon-front-test-manager choerodon-front-wiki)
