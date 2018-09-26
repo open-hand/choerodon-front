@@ -46,9 +46,10 @@ service.enable | 是否创建service
 ingress.enable | 是否创建ingress
 persistence.enabled | 是否启用持久化存储
 persistence.existingClaim | 绑定的pvc名称
-preJob.preConfig.mysql | 初始化菜单数据库信息
-preJob.preConfig.mysql.enabledelete | 是否删除旧版本中的冗余菜单，需要对应Menu.yml中有所修改。true/false
-preJob.preConfig.mysql.upattrs | 是否严格按照Menu.yml 更新菜单的顺序和层级，选填，可以包含`sort,parent_id`
+preJob.preConfig.db | 初始化菜单数据库信息
+preJob.preConfig.db.type | 初始化菜单数据库类型。mysql/oracle
+preJob.preConfig.db.enabledelete | 是否删除旧版本中的冗余菜单，需要对应Menu.yml中有所修改。true/false
+preJob.preConfig.db.upattrs | 是否严格按照Menu.yml 更新菜单的顺序和层级，选填，可以包含`sort,parent_id`
 env.open.PRO_API_HOST | api地址
 env.open.PRO_CLIENT_ID | client id
 env.open.PRO_LOCAL | 是否本地开发 false
