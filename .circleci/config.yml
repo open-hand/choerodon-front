@@ -31,7 +31,7 @@ jobs:
             done
             cd ./tmp
             python ./structure/menu/__init__.py -o yml -m ${modules[@]}
-            python ./structure/dashboard/__init__.py. -o yml -m iam devops agile testManager wiki
+            python ./structure/dashboard/__init__.py -o yml -m iam devops agile testManager wiki
       - run: 
           name: Build modules
           command: |
