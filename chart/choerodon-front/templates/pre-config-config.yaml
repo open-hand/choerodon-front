@@ -10,7 +10,7 @@ metadata:
 {{ include "service.labels.standard" . | indent 4 }}
 spec:
   backoffLimit: 1
-  activeDeadlineSeconds: 360
+  activeDeadlineSeconds: {{ .Values.preJob.timeout | default 300 }}
   template:
     metadata:
       name: {{ .Release.Name }}-init-config
