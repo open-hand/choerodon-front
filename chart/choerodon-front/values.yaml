@@ -10,6 +10,7 @@ image:
 
 preJob:
   preConfig:
+    enable: true
     db:
       host: 192.168.12.175
       port: 3306
@@ -18,7 +19,6 @@ preJob:
       dbname: iam_service
       enabledelete: true
       upattrs: sort
-      type: mysql
 
 logs:
   parser: nginx
