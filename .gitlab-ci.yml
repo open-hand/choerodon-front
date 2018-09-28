@@ -35,7 +35,7 @@ docker-build:
   source .auto_devops.sh
 
   function node_module_ci() {
-    npm install -registry --registry https://nexus.choerodon.com.cn/repository/choerodon-npm/ --sass-binary-site=http://npm.taobao.org/mirrors/node-sass
+    npm i --registry https://nexus.choerodon.com.cn/repository/choerodon-npm/ --sass-binary-site=http://npm.taobao.org/mirrors/node-sass
     mkdir -p /cache/$CI_PROJECT_NAME-$CI_PROJECT_ID-$CI_COMMIT_REF_NAME-$CI_COMMIT_SHA/
     mkdir -p ./tmp/
     cp -r ./node_modules/choerodon-front-boot/structure ./tmp/structure
