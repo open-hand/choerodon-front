@@ -4,9 +4,20 @@
     level: 'project',
     parent: 'choerodon.code.agile',
     type: 'dir',
-    sort: 7,
+    sort: 8,
     icon: 'settings',
     subMenu: 
      [ 'choerodon.code.agile.projectsetting',
        'choerodon.code.agile.fastsearch',
-       'choerodon.code.agile.issuelink'] } ]
+       'choerodon.code.agile.issuelink'] },
+  { code: 'choerodon.code.agile.report',
+    name: '报告',
+    enName: 'Report',
+    level: 'project',
+    parent: 'choerodon.code.agile',
+    type: 'dir',
+    sort: 7,
+    icon: 'class',
+    subMenu:
+     [ 'choerodon.code.agile.reporthost',
+       'choerodon.code.agile.reportboard'] } ]

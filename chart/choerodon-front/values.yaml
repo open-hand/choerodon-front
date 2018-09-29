@@ -9,8 +9,10 @@ image:
   pullPolicy: Always
 
 preJob:
+  timeout: 300
   preConfig:
-    mysql:
+    enable: true
+    db:
       host: 192.168.12.175
       port: 3306
       username: root
@@ -34,16 +36,17 @@ ingress:
 
 env:
   open:
-    PRO_API_HOST: gateway.choerodon.com.cn
-    PRO_DEVOPS_HOST: devops.choerodon.com.cn
-    PRO_AGILE_HOST: devops.choerodon.com.cn
+    PRO_API_HOST: gateway.choerodon.example.com
+    PRO_DEVOPS_HOST: devops.choerodon.example.com
+    PRO_AGILE_HOST: devops.choerodon.example.com
     PRO_CLIENT_ID: choerodon
     PRO_LOCAL: true
     PRO_TITLE_NAME: Choerodon
     PRO_HEADER_TITLE_NAME: Choerodon
-    PRO_COOKIE_SERVER: choerodon.com.cn
+    PRO_COOKIE_SERVER: choerodon.example.com
     PRO_HTTP: http
-    PRO_FILE_SERVER: http://minio.choerodon.com.cn
+    PRO_FILE_SERVER: http://minio.example.com
+    PRO_WEBSOCKET_SERVER: ws://ws.example.com
 
     
 resources: 
