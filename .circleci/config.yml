@@ -21,8 +21,7 @@ jobs:
       - run: |
             npm install -registry ${NPM_REPO}
             mkdir -p ./tmp/
-            cp -r ./node_modules/choerodon-front-boot/structure/configAuto.py ./tmp/
-            cp -r ./node_modules/choerodon-front-boot/structure/dashboard.py ./tmp/
+            cp -r ./node_modules/choerodon-front-boot/structure ./tmp/structure
             modules=(iam devops agile testManager wiki)
             folers=(choerodon-front-iam choerodon-front-devops choerodon-front-agile choerodon-front-test-manager choerodon-front-wiki)
             for i in "${!modules[@]}"; 
@@ -31,8 +30,8 @@ jobs:
               cp -r ./${folers[$i]}/${modules[$i]}/src/app/${modules[$i]}/config ./tmp/${modules[$i]}/src/app/${modules[$i]}/
             done
             cd ./tmp
-            python ./configAuto.py ${modules[@]}
-            python ./dashboard.py  -o yml -m iam testManager agile
+            python ./structure/menu/__init__.py -o yml -m ${modules[@]}
+            python ./structure/dashboard/__init__.py -o yml -m iam devops agile testManager wiki
       - run: 
           name: Build modules
           command: |
@@ -47,7 +46,7 @@ jobs:
           paths:
             - dist
             - node_modules/choerodon-front-boot/structure
-            - tmp/config.yml
+            - tmp/menu.yml
             - tmp/dashboard.yml
 
   docker_build:
@@ -56,7 +55,7 @@ jobs:
       - checkout
       - attach_workspace:
           at: .
-      - run: mv tmp/config.yml ./config.yml
+      - run: mv tmp/menu.yml ./menu.yml
       - run: mv tmp/dashboard.yml ./dashboard.yml
       - run: mv node_modules/choerodon-front-boot/structure ./structure
       - run: |

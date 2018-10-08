@@ -25,3 +25,5 @@ sh.sh
 pythonsql.py
 
 /tmp
+
+package-lock.json

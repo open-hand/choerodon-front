@@ -1,3 +1,4 @@
+{{- if .Values.preJob.preConfig.enable }}
 apiVersion: batch/v1
 kind: Job
 metadata:
@@ -9,7 +10,7 @@ metadata:
 {{ include "service.labels.standard" . | indent 4 }}
 spec:
   backoffLimit: 1
-  activeDeadlineSeconds: 120
+  activeDeadlineSeconds: {{ .Values.preJob.timeout | default 300 }}
   template:
     metadata:
       name: {{ .Release.Name }}-init-config
@@ -20,24 +21,29 @@ spec:
         imagePullPolicy: {{ .Values.image.pullPolicy }}
         env:
         - name: DB_HOST
-          value: {{ .Values.preJob.preConfig.mysql.host }}
+          value: {{ .Values.preJob.preConfig.db.host }}
         - name: DB_PORT
-          value: {{ .Values.preJob.preConfig.mysql.port | quote }}
+          value: {{ .Values.preJob.preConfig.db.port | quote }}
         - name: DB_USER
-          value: {{ .Values.preJob.preConfig.mysql.username }}
+          value: {{ .Values.preJob.preConfig.db.username }}
         - name: DB_PASS
-          value: {{ .Values.preJob.preConfig.mysql.password }}
+          value: {{ .Values.preJob.preConfig.db.password }}
         - name: DB_NAME
-          value: {{ .Values.preJob.preConfig.mysql.dbname }}
+          value: {{ .Values.preJob.preConfig.db.dbname }}
         - name: UP_ATTRS
-          value: {{ .Values.preJob.preConfig.mysql.upattrs }}
+          value: {{ .Values.preJob.preConfig.db.upattrs }}
+{{- if .Values.preJob.preConfig.db.type }}
+        - name: DB_TYPE
+          value: {{ .Values.preJob.preConfig.db.type }}
+        {{- end }}
         command:
         - /bin/sh
         - -c
         - '
           cd /usr/share/nginx/html;
-          python sql.py -d {{ .Values.preJob.preConfig.mysql.enabledelete }};
+          python ./menu/__init__.py -o sql -d {{ .Values.preJob.preConfig.db.enabledelete }};
           python initDir.py;
-          python dashboard.py -o sql
+          python ./dashboard/__init__.py -o sql
           '
       restartPolicy: Never
+{{- end }}

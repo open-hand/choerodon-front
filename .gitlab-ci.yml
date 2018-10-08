@@ -7,7 +7,7 @@ stages:
 variables:
   GIT_SUBMODULE_STRATEGY: recursive
 
-node-dev-build:
+node-build:
   stage: package
   script:
     - node_module_ci
@@ -35,11 +35,10 @@ docker-build:
   source .auto_devops.sh
 
   function node_module_ci() {
-    npm install -registry https://nexus.choerodon.com.cn/repository/choerodon-npm/
+    npm i --registry https://nexus.choerodon.com.cn/repository/choerodon-npm/ --sass-binary-site=http://npm.taobao.org/mirrors/node-sass
     mkdir -p /cache/$CI_PROJECT_NAME-$CI_PROJECT_ID-$CI_COMMIT_REF_NAME-$CI_COMMIT_SHA/
     mkdir -p ./tmp/
-    cp -r ./node_modules/choerodon-front-boot/structure/configAuto.py ./tmp/
-    cp -r ./node_modules/choerodon-front-boot/structure/dashboard.py ./tmp/
+    cp -r ./node_modules/choerodon-front-boot/structure ./tmp/structure
     modules=(iam devops agile testManager wiki)
     folers=(choerodon-front-iam choerodon-front-devops choerodon-front-agile choerodon-front-test-manager choerodon-front-wiki)
     for i in "${!modules[@]}"; 
@@ -48,9 +47,9 @@ docker-build:
       cp -r ./${folers[$i]}/${modules[$i]}/src/app/${modules[$i]}/config ./tmp/${modules[$i]}/src/app/${modules[$i]}/
     done
     cd ./tmp
-    python ./configAuto.py ${modules[@]}
-    python ./dashboard.py  -o yml -m iam testManager agile
-    cp -r config.yml /cache/$CI_PROJECT_NAME-$CI_PROJECT_ID-$CI_COMMIT_REF_NAME-$CI_COMMIT_SHA/
+    python ./structure/menu/__init__.py -o yml -m ${modules[@]}
+    python ./structure/dashboard/__init__.py -o yml -m iam devops agile testManager wiki
+    cp -r menu.yml /cache/$CI_PROJECT_NAME-$CI_PROJECT_ID-$CI_COMMIT_REF_NAME-$CI_COMMIT_SHA/
     cp -r dashboard.yml /cache/$CI_PROJECT_NAME-$CI_PROJECT_ID-$CI_COMMIT_REF_NAME-$CI_COMMIT_SHA/
     rm -rf ./tmp
     cd ..
