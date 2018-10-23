@@ -8,6 +8,7 @@
     icon: 'settings',
     subMenu: 
      [ 'choerodon.code.agile.projectsetting',
+       'choerodon.code.agile.messageNotification',
        'choerodon.code.agile.fastsearch',
        'choerodon.code.agile.issuelink'] },
   { code: 'choerodon.code.agile.report',
