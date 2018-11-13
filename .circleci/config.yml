@@ -1,6 +1,6 @@
 default: &default
   docker:
-  - image: choerodon/cifront:0.6.0
+  - image: choerodon/cifront:0.7.0
 
 version: 2
 jobs:
@@ -66,7 +66,7 @@ jobs:
 
   helm_chart_build:
     docker:
-    - image: choerodon/cibase:0.6.0
+    - image: choerodon/cibase:0.7.0
     steps:
       - checkout
       - run: |
