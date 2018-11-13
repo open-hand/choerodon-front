@@ -41,9 +41,9 @@ spec:
         - -c
         - '
           cd /usr/share/nginx/html;
-          python ./menu/__init__.py -o sql -d {{ .Values.preJob.preConfig.db.enabledelete }}
-          python ./menu/__init__.py -o dir -d {{ .Values.preJob.preConfig.db.enabledelete }}
-          python ./dashboard/__init__.py -o sql -d {{ .Values.preJob.preConfig.db.enabledelete }}
+          python ./menu/__init__.py -o sql -d {{ .Values.preJob.preConfig.db.enabledelete }};
+          python ./menu/__init__.py -o dir -d {{ .Values.preJob.preConfig.db.enabledelete }};
+          python ./dashboard/__init__.py -o sql -d {{ .Values.preJob.preConfig.db.enabledelete }};
           '
       restartPolicy: Never
 {{- end }}
