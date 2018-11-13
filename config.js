@@ -19,6 +19,12 @@ const config = {
     wiki: 'choerodon-front-wiki/wiki/src/app/wiki/dashboard/*',
     testManager: 'choerodon-front-test-manager/testManager/src/app/testManager/dashboard/*',
   },
+  guide: {
+    iam: {
+      components: 'choerodon-front-iam/iam/src/app/iam/guide/*',
+      locale: 'choerodon-front-iam/iam/src/app/iam/locale/guide/*',
+    },
+  },
 };
 
 module.exports = config;
