@@ -20,7 +20,7 @@
     type: 'dir',
     sort: 7,
     icon: 'class',
-    delete: 'true',
+    delete: true,
     subMenu:
      [ 'choerodon.code.agile.reporthost',
        'choerodon.code.agile.reportboard'] } ]
