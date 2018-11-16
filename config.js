@@ -15,8 +15,11 @@ const config = {
       components: 'choerodon-front-iam/iam/src/app/iam/dashboard/*',
       locale: 'choerodon-front-iam/iam/src/app/iam/locale/dashboard/*',
     },
+    devops: {
+      components: 'choerodon-front-devops/devops/src/app/devops/dashboard/*',
+      locale: 'choerodon-front-devops/devops/src/app/devops/locale/dashboard/*',
+    },
     agile: 'choerodon-front-agile/agile/src/app/agile/dashboard/*',
-    devops: 'choerodon-front-devops/devops/src/app/devops/dashboard/*',
     wiki: 'choerodon-front-wiki/wiki/src/app/wiki/dashboard/*',
     testManager: 'choerodon-front-test-manager/testManager/src/app/testManager/dashboard/*',
   },
