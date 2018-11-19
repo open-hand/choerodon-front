@@ -1,4 +1,4 @@
-image: registry.cn-hangzhou.aliyuncs.com/choerodon-tools/cifront:0.6.0
+image: registry.cn-hangzhou.aliyuncs.com/choerodon-tools/cifront:0.7.0
 
 stages:
   - package
@@ -19,7 +19,7 @@ node-build:
 
 docker-build:
   stage: build
-  image: registry.cn-hangzhou.aliyuncs.com/choerodon-tools/cibase:0.6.0
+  image: registry.cn-hangzhou.aliyuncs.com/choerodon-tools/cibase:0.7.0
   script:
     - docker_build
     - rm -rf /cache/${CI_PROJECT_NAME}-${CI_PROJECT_ID}-${CI_COMMIT_REF_NAME}-${CI_COMMIT_SHA}

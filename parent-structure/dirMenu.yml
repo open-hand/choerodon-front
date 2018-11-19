@@ -9,6 +9,7 @@
     subMenu: 
      [ 'choerodon.code.agile.projectsetting',
        'choerodon.code.agile.messageNotification',
+       'choerodon.code.agile.component',
        'choerodon.code.agile.fastsearch',
        'choerodon.code.agile.issuelink'] },
   { code: 'choerodon.code.agile.report',
@@ -19,6 +20,7 @@
     type: 'dir',
     sort: 7,
     icon: 'class',
+    delete: true,
     subMenu:
      [ 'choerodon.code.agile.reporthost',
        'choerodon.code.agile.reportboard'] } ]
