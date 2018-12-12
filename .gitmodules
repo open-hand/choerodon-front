@@ -13,3 +13,6 @@
 [submodule "choerodon-front-wiki"]
 	path = choerodon-front-wiki
 	url = ../../choerodon-c7nkb/choerodon-front-wiki
+[submodule "choerodon-front-issue"]
+	path = choerodon-front-issue
+	url =../../choerodon-agile/choerodon-front-issue
