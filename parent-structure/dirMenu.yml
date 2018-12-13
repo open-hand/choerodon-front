@@ -63,7 +63,7 @@
     level: 'project',
     parent: 'choerodon.code.deployment-pipeline',
     type: 'dir',
-    sort: 1,
+    sort: 6,
     icon: 'database',
     subMenu: 
      [ 'choerodon.code.deployment-pipeline.service',
@@ -76,7 +76,7 @@
     level: 'project',
     parent: 'choerodon.code.deployment-pipeline',
     type: 'dir',
-    sort: 2,
+    sort: 7,
     icon: 'tune',
     subMenu: 
      [ 'choerodon.code.deployment-pipeline.config-map',
