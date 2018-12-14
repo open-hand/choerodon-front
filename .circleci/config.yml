@@ -17,13 +17,14 @@ jobs:
       - run: cd ~/repo/choerodon-front-agile && git submodule update --init
       - run: cd ~/repo/choerodon-front-test-manager && git submodule update --init
       - run: cd ~/repo/choerodon-front-wiki && git submodule update --init
+      - run: cd ~/repo/choerodon-front issue && git submodule update --init
       - run: cd ~/repo
       - run: |
             npm install -registry ${NPM_REPO}
             mkdir -p ./tmp/
             cp -r ./node_modules/choerodon-front-boot/structure ./tmp/structure
-            modules=(iam devops agile testManager wiki)
-            folers=(choerodon-front-iam choerodon-front-devops choerodon-front-agile choerodon-front-test-manager choerodon-front-wiki)
+            modules=(iam devops agile testManager wiki issue)
+            folers=(choerodon-front-iam choerodon-front-devops choerodon-front-agile choerodon-front-test-manager choerodon-front-wiki choerodon-front-issue)
             for i in "${!modules[@]}"; 
             do 
               mkdir -p ./tmp/${modules[$i]}/src/app/${modules[$i]}/
@@ -36,7 +37,7 @@ jobs:
           name: Build modules
           command: |
             chmod -R 777 node_modules
-            modules=(choerodon-front-iam/iam choerodon-front-devops/devops choerodon-front-agile/agile choerodon-front-test-manager/testManager choerodon-front-wiki/wiki)
+            modules=(choerodon-front-iam/iam choerodon-front-devops/devops choerodon-front-agile/agile choerodon-front-test-manager/testManager choerodon-front-wiki/wiki choerodon-front-issue/issue)
             npm run ${1:-"build"} ${modules[@]} -registry ${NPM_REPO}
             find dist -name '*.js' | xargs sed -i "s/localhost:version/$CIRCLE_TAG/g"
           no_output_timeout: 60m
