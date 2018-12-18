@@ -11,6 +11,9 @@ There are a number of modules in Choerodon Front, here is a quick overview:
 * [choerodon-front-agile](https://github.com/choerodon/choerodon-front-agile) - Agile Front is the core front service of Choerodon. The service is responsible for Agile process management and providing users with a better user experience through rich display.
 * [choerodon-front-wiki](https://github.com/choerodon/choerodon-front-wiki) - This project looks at the wiki space of the organization and project, as well as features such as creating wiki space.
 * [choerodon-front-test-manager](https://github.com/choerodon/choerodon-front-test-manager) - Test Manager Front is the core front service of Choerodon. The service provide users with agile continuous testing tools. Improve test flexibility and visibility. Optimize project test management methods.
+* [choerodon-front-issue](https://github.com/choerodon/choerodon-front-issue) - `Issue Front` is the core front service of Choerodon. The service is responsible for Issue and stateMachine process management and providing users with a better user experience through rich display.
+
+
 
 ## To get the code
 
