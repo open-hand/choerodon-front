@@ -32,8 +32,6 @@ spec:
           value: {{ .Values.preJob.preConfig.db.dbname }}
         - name: UP_ATTRS
           value: {{ .Values.preJob.preConfig.db.upattrs }}
-        - name: ENABLE_DEBUG
-          value: {{ .Values.prejob.preConfig.debug }}
 {{- if .Values.preJob.preConfig.db.type }}
         - name: DB_TYPE
           value: {{ .Values.preJob.preConfig.db.type }}
@@ -43,9 +41,9 @@ spec:
         - -c
         - '
           cd /usr/share/nginx/html;
-          python ./menu/__init__.py -o sql -d {{ .Values.preJob.preConfig.db.enabledelete }};
-          python ./menu/__init__.py -o dir -d {{ .Values.preJob.preConfig.db.enabledelete }};
-          python ./dashboard/__init__.py -o sql -d {{ .Values.preJob.preConfig.db.enabledelete }};
+          python ./menu/__init__.py -o sql -d {{ .Values.preJob.preConfig.db.enabledelete }} -x {{ .Values.prejob.preConfig.debug }};
+          python ./menu/__init__.py -o dir -d {{ .Values.preJob.preConfig.db.enabledelete }} -x {{ .Values.prejob.preConfig.debug }};
+          python ./dashboard/__init__.py -o sql -d {{ .Values.preJob.preConfig.db.enabledelete }} -x {{ .Values.prejob.preConfig.debug }};
           '
       restartPolicy: Never
 {{- end }}
