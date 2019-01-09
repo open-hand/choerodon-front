@@ -12,6 +12,7 @@ preJob:
   timeout: 300
   preConfig:
     enable: true
+    debug: true
     db:
       host: 192.168.12.175
       port: 3306
