@@ -17,7 +17,7 @@ jobs:
       - run: cd ~/repo/choerodon-front-agile && git submodule update --init
       - run: cd ~/repo/choerodon-front-test-manager && git submodule update --init
       - run: cd ~/repo/choerodon-front-wiki && git submodule update --init
-      - run: cd ~/repo/choerodon-front issue && git submodule update --init
+      - run: cd ~/repo/choerodon-front-issue && git submodule update --init
       - run: cd ~/repo
       - run:           
           name: Npm Install
