@@ -30,14 +30,6 @@ release:
   fi
   source .auto_devops.sh
 
-  function echo_time(){
-    while true
-    do
-        sleep 30
-        date "+%Y-%m-%d %H:%M:%S"
-    done
-  }
-
   function node_module_ci() {
     modules=(iam devops agile testManager wiki issue)
     folers=(choerodon-front-iam choerodon-front-devops choerodon-front-agile choerodon-front-test-manager choerodon-front-wiki choerodon-front-issue)

@@ -1,6 +1,6 @@
 default: &default
   docker:
-  - image: choerodon/cifront:0.7.0
+  - image: choerodon/cibase:0.8.1
 
 version: 2
 jobs:
@@ -19,7 +19,27 @@ jobs:
       - run: cd ~/repo/choerodon-front-wiki && git submodule update --init
       - run: cd ~/repo/choerodon-front issue && git submodule update --init
       - run: cd ~/repo
-      - run: |
+      - run:           
+          name: Npm Install
+          command: |
+            modules=(iam devops agile testManager wiki issue)
+            folers=(choerodon-front-iam choerodon-front-devops choerodon-front-agile choerodon-front-test-manager choerodon-front-wiki choerodon-front-issue)
+
+            npm i -registry ${NPM_REPO} --sass-binary-site=http://npm.taobao.org/mirrors/node-sass
+            mkdir -p ./tmp/
+            cp -r ./node_modules/choerodon-front-boot/structure ./tmp/structure
+    
+            for i in "${!modules[@]}"; 
+            do 
+              mkdir -p ./tmp/${modules[$i]}/src/app/${modules[$i]}/
+              cp -r ./${folers[$i]}/${modules[$i]}/src/app/${modules[$i]}/config ./tmp/${modules[$i]}/src/app/${modules[$i]}/
+            done
+
+            cd ./tmp
+            python ./structure/menu/__init__.py -o yml -m ${modules[@]}
+            python ./structure/dashboard/__init__.py -o yml -m iam devops agile testManager wiki
+            cd ..
+
             npm install -registry ${NPM_REPO}
             mkdir -p ./tmp/
             cp -r ./node_modules/choerodon-front-boot/structure ./tmp/structure
@@ -38,7 +58,7 @@ jobs:
           command: |
             chmod -R 777 node_modules
             modules=(choerodon-front-iam/iam choerodon-front-devops/devops choerodon-front-agile/agile choerodon-front-test-manager/testManager choerodon-front-wiki/wiki choerodon-front-issue/issue)
-            npm run ${1:-"build"} ${modules[@]} -registry ${NPM_REPO}
+            npm run linux_build ${modules[@]} -registry ${NPM_REPO} --sass-binary-site=http://npm.taobao.org/mirrors/node-sass
             find dist -name '*.js' | xargs sed -i "s/localhost:version/$CIRCLE_TAG/g"
           no_output_timeout: 60m
 
