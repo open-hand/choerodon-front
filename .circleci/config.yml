@@ -61,8 +61,6 @@ jobs:
             npm run linux_build ${modules[@]} -registry ${NPM_REPO} --sass-binary-site=http://npm.taobao.org/mirrors/node-sass
             find dist -name '*.js' | xargs sed -i "s/localhost:version/$CIRCLE_TAG/g"
           no_output_timeout: 60m
-          environment:
-            TERM: ${TERM_MODEL}
 
       - persist_to_workspace:
           root: .
