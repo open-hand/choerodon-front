@@ -110,6 +110,7 @@ workflows:
               only:
                 - /^release-.*$/
                 - /^hotfix-.*$/
+                - master
       - docker_build:
           context: org-global
           requires:
