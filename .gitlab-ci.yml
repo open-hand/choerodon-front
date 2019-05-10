@@ -6,8 +6,8 @@ stages:
 
 variables:
   GIT_SUBMODULE_STRATEGY: recursive
-
-build:
+  
+test_build:
   stage: package
   script:
     - node_module_ci
