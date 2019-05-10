@@ -13,13 +13,26 @@ build:
     - node_module_ci
     - node_build linux_build
     - cp_file
-    - kaniko -c $CI_PROJECT_DIR/docker -f $CI_PROJECT_DIR/docker/Dockerfile -d ${DOCKER_REGISTRY}/${GROUP_NAME}/${PROJECT_NAME}:${CI_COMMIT_TAG}
+    - docker_build
+  only:
+    - master
 
+build:
+  stage: package
+  script:
+    - node_module_ci
+    - node_build linux_build
+    - cp_file
+    - docker_build push
+  only:
+    - tags
 
 release:
   stage: build
   script:
     - chart_build
+  only:
+    - tags
 
 
 .auto_devops: &auto_devops |
@@ -71,7 +84,23 @@ release:
 
     rm -rf ./tmp
   }
-  
+
+  function docker_build(){
+    sed -i "s/registry\.cn\-hangzhou\.aliyuncs.com\/choerodon-tools/choerodon/g" Dockerfile
+    docker login -u ${REGISTRY_USER} -p ${REGISTRY_PASSWORD}
+    docker build --pull -t choerodon/choerodon-front:${CI_COMMIT_TAG} .
+    if [ "$1" eq "push" ]; then:
+      docker push choerodon/choerodon-front:${CI_COMMIT_TAG}
+    fi
+  }
+
+  function chart_build(){
+    CHART_PATH=`find . -name Chart.yaml`
+    yq w -i ${CHART_PATH%/*}/values.yaml image.repository choerodon/choerodon-front
+    yq w -i ${CHART_PATH%/*}/values.yaml image.tag ${CI_COMMIT_TAG}
+    helm repo add choerodon "${CHART_REPOSITORY}/${CHART_ORGANIZATION}/${CHART_PROJECT}/"
+    helm push --username ${HELM_USER} --password ${HELM_PASSWORD} ${CHART_PATH%/*} --version ${CI_COMMIT_TAG} choerodon
+  }
 
 before_script:
   - *auto_devops
