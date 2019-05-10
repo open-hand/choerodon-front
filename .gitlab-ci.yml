@@ -6,7 +6,7 @@ stages:
 
 variables:
   GIT_SUBMODULE_STRATEGY: recursive
-  
+
 test_build:
   stage: package
   script:
@@ -89,7 +89,7 @@ release:
     sed -i "s/registry\.cn\-hangzhou\.aliyuncs.com\/choerodon-tools/choerodon/g" Dockerfile
     docker login -u ${REGISTRY_USER} -p ${REGISTRY_PASSWORD}
     docker build --pull -t choerodon/choerodon-front:${CI_COMMIT_TAG} .
-    if [ "$1" eq "push" ]; then:
+    if [ "$1" eq "push" ]; then
       docker push choerodon/choerodon-front:${CI_COMMIT_TAG}
     fi
   }
