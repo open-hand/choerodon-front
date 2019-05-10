@@ -88,7 +88,7 @@ release:
   function docker_build(){
     sed -i "s/registry\.cn\-hangzhou\.aliyuncs.com\/choerodon-tools/choerodon/g" Dockerfile
     docker login -u ${REGISTRY_USER} -p ${REGISTRY_PASSWORD}
-    docker build --pull -t choerodon/choerodon-front:${CI_COMMIT_TAG} .
+    docker build -t choerodon/choerodon-front:${CI_COMMIT_TAG} .
     if [ "$1" eq "push" ]; then
       docker push choerodon/choerodon-front:${CI_COMMIT_TAG}
     fi
