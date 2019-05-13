@@ -13,7 +13,7 @@ test_build:
     - node_module_ci
     - node_build linux_build
     - cp_file
-    - docker_build
+    - kaniko -c $CI_PROJECT_DIR/docker -f $CI_PROJECT_DIR/docker/Dockerfile -d ${REGISTRY_URL}/${REGISTRY_GROUP}/${REGISTRY_PROJECT}:${CI_COMMIT_TAG} --no-push
   only:
     - master
 
@@ -23,7 +23,7 @@ build:
     - node_module_ci
     - node_build linux_build
     - cp_file
-    - docker_build push
+    - kaniko -c $CI_PROJECT_DIR/docker -f $CI_PROJECT_DIR/docker/Dockerfile -d ${REGISTRY_URL}/${REGISTRY_GROUP}/${REGISTRY_PROJECT}:${CI_COMMIT_TAG}
   only:
     - tags
 
@@ -81,18 +81,8 @@ release:
     cp -r ./tmp/menu.yml $CI_PROJECT_DIR/docker
     cp -r ./tmp/dashboard.yml $CI_PROJECT_DIR/docker
     cp -r dist $CI_PROJECT_DIR/docker/dist
-
+    sed -i "s/registry\.cn\-hangzhou\.aliyuncs.com\/choerodon-tools/choerodon/g" $CI_PROJECT_DIR/docker/Dockerfile
     rm -rf ./tmp
-  }
-
-  function docker_build(){
-    cd $CI_PROJECT_DIR/docker
-    sed -i "s/registry\.cn\-hangzhou\.aliyuncs.com\/choerodon-tools/choerodon/g" Dockerfile
-    docker login -u ${REGISTRY_USER} -p ${REGISTRY_PASSWORD}
-    docker build -t choerodon/choerodon-front:${CI_COMMIT_TAG} .
-    if [ "$1" eq "push" ]; then
-      docker push choerodon/choerodon-front:${CI_COMMIT_TAG}
-    fi
   }
 
   function chart_build(){
