@@ -1,39 +1,18 @@
 image: registry.cn-hangzhou.aliyuncs.com/choerodon-tools/cibase:0.8.1
 
 stages:
-  - package
   - build
 
 variables:
   GIT_SUBMODULE_STRATEGY: recursive
 
-test_build:
-  stage: package
-  script:
-    - node_module_ci
-    - node_build linux_build
-    - cp_file
-    - kaniko -c $CI_PROJECT_DIR/docker -f $CI_PROJECT_DIR/docker/Dockerfile -d ${REGISTRY_URL}/${REGISTRY_GROUP}/${REGISTRY_PROJECT}:${CI_COMMIT_TAG} --no-push
-  only:
-    - master
-
 build:
-  stage: package
+  stage: build
   script:
     - node_module_ci
     - node_build linux_build
     - cp_file
     - kaniko -c $CI_PROJECT_DIR/docker -f $CI_PROJECT_DIR/docker/Dockerfile -d ${REGISTRY_URL}/${REGISTRY_GROUP}/${REGISTRY_PROJECT}:${CI_COMMIT_TAG}
-  only:
-    - tags
-
-release:
-  stage: build
-  script:
-    - chart_build
-  only:
-    - tags
-
 
 .auto_devops: &auto_devops |
   http_status_code=`curl -o .auto_devops.sh -s -m 10 --connect-timeout 10 -w %{http_code} "${CHOERODON_URL}/devops/ci?token=${Token}&type=front"`
@@ -83,14 +62,6 @@ release:
     cp -r dist $CI_PROJECT_DIR/docker/dist
     sed -i "s/registry\.cn\-hangzhou\.aliyuncs.com\/choerodon-tools/choerodon/g" $CI_PROJECT_DIR/docker/Dockerfile
     rm -rf ./tmp
-  }
-
-  function chart_build(){
-    CHART_PATH=`find . -name Chart.yaml`
-    yq w -i ${CHART_PATH%/*}/values.yaml image.repository choerodon/choerodon-front
-    yq w -i ${CHART_PATH%/*}/values.yaml image.tag ${CI_COMMIT_TAG}
-    helm repo add choerodon "${CHART_REPOSITORY}/${CHART_ORGANIZATION}/${CHART_PROJECT}/"
-    helm push --username ${HELM_USER} --password ${HELM_PASSWORD} ${CHART_PATH%/*} --version ${CI_COMMIT_TAG} choerodon
   }
 
 before_script:
