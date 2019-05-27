@@ -8,32 +8,18 @@ image:
   repository: registry.choerodon.com.cn/choerodon/choerodon-front
   pullPolicy: Always
 
-preJob:
-  timeout: 300
-  preConfig:
-    enable: true
-    debug: true
-    db:
-      host: 192.168.12.175
-      port: 3306
-      username: root
-      password: choerodon
-      dbname: iam_service
-      enabledelete: true
-      upattrs: sort
-
 logs:
   parser: nginx
 
 service:
-  enable: false
-  type: ClusterIP
+  enabled: false
   port: 80
+  type: ClusterIP
   name: choerodon-front
 
 ingress:
-  enable: false
-  host: choerodon.com.cn
+  enabled: false
+  host: choerodon.example.com
 
 env:
   open:
@@ -41,13 +27,11 @@ env:
     PRO_DEVOPS_HOST: devops.choerodon.example.com
     PRO_AGILE_HOST: devops.choerodon.example.com
     PRO_CLIENT_ID: choerodon
-    PRO_LOCAL: true
-    PRO_TITLE_NAME: Choerodon
-    PRO_HEADER_TITLE_NAME: Choerodon
     PRO_COOKIE_SERVER: choerodon.example.com
     PRO_HTTP: http
     PRO_FILE_SERVER: http://minio.example.com
     PRO_WEBSOCKET_SERVER: ws://ws.example.com
+    PRO_LOCAL: true
 
     
 resources: 

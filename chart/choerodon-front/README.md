@@ -42,19 +42,10 @@ choerodon.io/logs-parser: {{ .Values.logs.parser | quote }}
 
 参数名 | 含义 
 --- | --- 
-service.enable | 是否创建service
-ingress.enable | 是否创建ingress
-persistence.enabled | 是否启用持久化存储
-persistence.existingClaim | 绑定的pvc名称
-preJob.preConfig.db | 初始化菜单数据库信息
-preJob.preConfig.db.type | 初始化菜单数据库类型。mysql/oracle
-preJob.preConfig.db.enabledelete | 是否删除旧版本中的冗余菜单，需要对应Menu.yml中有所修改。true/false
-preJob.preConfig.db.upattrs | 是否严格按照Menu.yml 更新菜单的顺序和层级，选填，可以包含`sort,parent_id`
+service.enabled | 是否创建service
+ingress.enabled | 是否创建ingress
 env.open.PRO_API_HOST | api地址
 env.open.PRO_CLIENT_ID | client id
-env.open.PRO_LOCAL | 是否本地开发 false
-env.open.PRO_TITLE_NAME | 页面显示标题
-env.open.PRO_HEADER_TITLE_NAME | 页面header标题
 env.open.PRO_DEVOPS_HOST | devops service地址
 env.open.PRO_FILE_SERVER | 文件上传服务地址
 env.open.PRO_AGILE_HOST | 敏捷文件地址
