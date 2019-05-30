@@ -19,9 +19,9 @@
     "@choerodon/asgard": "0.17.0",
     "@choerodon/notify": "0.17.1",
     "@choerodon/manager": "0.17.0",
-    "@choerodon/devops": "0.17.1",
-    "@choerodon/knowledge": "0.17.0",
-    "@choerodon/agile": "0.17.1",
+    "@choerodon/devops": "0.17.2",
+    "@choerodon/knowledge": "0.17.1",
+    "@choerodon/agile": "0.17.2",
     "@choerodon/issue": "0.17.0",
     "@choerodon/testmanager": "0.17.0",
     "@choerodon/wiki": "0.17.0"
