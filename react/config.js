@@ -39,7 +39,8 @@ const config = {
       components: './node_modules/@choerodon/iam/lib/src/app/iam/guide/*',
       locale: './node_modules/@choerodon/iam/lib/src/app/iam/locale/guide/*',
     },
-  }
+  },
+  outward: '#/knowledge/share,#/knowledge/organizations/create,#/knowledge/project/create',
 };
 
 module.exports = config;

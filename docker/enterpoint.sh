@@ -1,6 +1,11 @@
 #!/bin/bash
 set -e
 
+if [ "$PRO_CUSTOM_THEME_COLOR" == "" ] 
+then 
+    PRO_CUSTOM_THEME_COLOR="undefined"
+fi
+
 find /usr/share/nginx/html -name '*.js' | xargs sed -i "s localhost:http $PRO_HTTP g"
 find /usr/share/nginx/html -name '*.js' | xargs sed -i "s localhost:8080 $PRO_API_HOST g"
 find /usr/share/nginx/html -name '*.js' | xargs sed -i "s localhost:clientId $PRO_CLIENT_ID g"
@@ -12,5 +17,6 @@ find /usr/share/nginx/html -name '*.js' | xargs sed -i "s POD_WEBSOCKET_URL $PRO
 find /usr/share/nginx/html -name '*.js' | xargs sed -i "s SERVICES_URL_EXAMPLE $PRO_AGILE_HOST g"
 find /usr/share/nginx/html -name '*.js' | xargs sed -i "s localhost:fileserver $PRO_FILE_SERVER g"
 find /usr/share/nginx/html -name '*.js' | xargs sed -i "s localhost:wsserver $PRO_WEBSOCKET_SERVER g"
+find /usr/share/nginx/html -name '*.js' | xargs sed -i "s localhost:customthemecolor $PRO_CUSTOM_THEME_COLOR g"
 
 exec "$@"
