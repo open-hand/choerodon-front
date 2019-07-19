@@ -32,6 +32,7 @@ env:
     PRO_FILE_SERVER: http://minio.example.com
     PRO_WEBSOCKET_SERVER: ws://ws.example.com
     PRO_LOCAL: true
+    PRO_CUSTOM_THEME_COLOR: undefined
 
     
 resources: 
