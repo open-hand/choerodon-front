@@ -1,7 +1,7 @@
 {
   "name": "@choerodon/choerodon-front",
   "routeName": "c7n",
-  "version": "0.18.8",
+  "version": "0.18.9",
   "description": "Choerodon Front",
   "scripts": {
     "start": "choerodon-front-boot start --config ./react/config.js",
@@ -19,7 +19,7 @@
     "@choerodon/asgard": "0.18.0",
     "@choerodon/notify": "0.18.0",
     "@choerodon/manager": "0.18.0",
-    "@choerodon/devops": "0.18.6",
+    "@choerodon/devops": "0.18.8",
     "@choerodon/knowledge": "0.18.5",
     "@choerodon/agile": "0.18.5",
     "@choerodon/issue": "0.18.0",
