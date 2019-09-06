@@ -15,11 +15,11 @@
   "dependencies": {
     "@choerodon/boot": "0.18.2",
     "@choerodon/master": "0.18.1",
-    "@choerodon/iam": "0.18.2",
+    "@choerodon/iam": "0.18.3",
     "@choerodon/asgard": "0.18.0",
     "@choerodon/notify": "0.18.0",
     "@choerodon/manager": "0.18.0",
-    "@choerodon/devops": "0.18.8",
+    "@choerodon/devops": "0.18.9",
     "@choerodon/knowledge": "0.18.5",
     "@choerodon/agile": "0.18.5",
     "@choerodon/issue": "0.18.0",
