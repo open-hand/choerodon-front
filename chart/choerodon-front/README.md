@@ -1,53 +1,60 @@
-部署文件的渲染模板，我们下文将定义一些变量，helm执行时会将变量渲染进模板文件中。
+# Choerodon Front
+Choerodon Front 将多个Choerodon 微前端打包到同一个前端服务中。
 
-## _helpers.tpl
+## Introduction
 
-这个文件我们用来进行标签模板的定义，以便在上文提到的位置进行标签渲染。
+## Add Helm chart repository
 
-此项目标签总共分为两个部分: 平台、日志。
-
-### 平台标签
-
-#### deployment 级:
-
+``` bash    
+helm repo add choerodon https://openchart.choerodon.com.cn/choerodon/c7n
+helm repo update
 ```
-{{- define "service.labels.standard" -}}
-choerodon.io/release: {{ .Release.Name | quote }}
-{{- end -}}
+
+## Installing the Chart
+
+```bash
+$ helm install c7n/choerodon-front --name choerodon-front
 ```
-平台管理实例需要的实例ID。
 
+Specify each parameter using the `--set key=value[,key=value]` argument to `helm install`.
 
-### 日志标签
+## Uninstalling the Chart
 
-#### deployment 级:
-
+```bash
+$ helm delete choerodon-front
 ```
-{{- define "service.logging.deployment.label" -}}
-choerodon.io/logs-parser: {{ .Values.logs.parser | quote }}
-{{- end -}}
+
+## Configuration
+
+Parameter | Description	| Default
+--- |  ---  |  ---  
+`replicaCount` | Replicas count | `1`
+`env.open.API_HOST` | 后端网关地址 | `http://gateway.example.com`
+`env.open.WEBSOCKET_SERVER` | 后端消息服务ws地址 | `ws://ws.example.com`
+`env.open.FILE_SERVER` | 文件服务地址 | `http://minio.example.com`
+`env.open.COOKIE_SERVER` | cookie 共享地址 | `http://choerodon.example.com`
+`env.open.DEVOPS_HOST` | Devops 后端服务地址 | `ws://devops.choerodon.example.com`
+`env.open.BUZZ_WEBSOCKET_URL` | Buzz 后端服务地址 | `ws://buzz.example.com`
+`env.open.CLIENT_ID` | 总前端对应的后端客户端id | `choerodon`
+`env.open.HTTP` | 前端域名协议 | `http`
+`env.open.LOCAL` | 是否为本地开发 | `false`
+`env.open.CUSTOM_THEME_COLOR` | 默认主题色 | `undefined`
+`service.port` | service端口 | `80`
+`service.enabled` | 是否创建svc | `false`
+`ingress.enabled` | 是否创建ingress | `false`
+`ingress.host` | ingress 地址 | `choerodon.example.com`
+`logs.parser` | 日志收集格式 | `nginx`
+`resources.limits` | k8s中容器能使用资源的资源最大值 | ``
+`resources.requests` | k8s中容器使用的最小资源需求 | ``
+
+
+## 验证部署
+```bash
+curl $(kubectl get svc choerodon-front -o jsonpath="{.spec.clusterIP}" -n c7n-system)
 ```
-日志管理所需要的应用标签。该标签指定应用程序的日志格式，内置格式有`nginx`,`spring-boot`,`docker`对于前端服务请使用`nginx`，如果不需要收集日志请移除此段代码，并删除模板文件关于`service.logging.deployment.label`的引用。
+出现以下类似信息即为成功部署
 
-## values.yaml
+```bash
+<!DOCTYPE html><html><head><meta http-equiv="Content-type"content="text/html; charset=utf-8"><title>Choerodon</title><link rel="shortcut icon"href="favicon.ico"></head><body><div id="app"></div><script type="text/javascript"src="app/vendor_19e4b950.js"></script><script type="text/javascript"src="app/main_19e4b950.js"></script></body></html>
+```
 
-这个文件中的键值对，即为我们上文中所引用的变量。
-
-将所以有变量集中在一个文件中，方便部署的时候进行归档以及灵活替换。
-
-同时，helm命令支持使用 `--set FOO_BAR=FOOBAR` 参数对values 文件中的变量进行赋值，可以进一步简化部署流程。
-
-
-## 参数对照表
-
-参数名 | 含义 
---- | --- 
-service.enabled | 是否创建service
-ingress.enabled | 是否创建ingress
-env.open.PRO_API_HOST | api地址
-env.open.PRO_CLIENT_ID | client id
-env.open.PRO_DEVOPS_HOST | devops service地址
-env.open.PRO_FILE_SERVER | 文件上传服务地址
-env.open.PRO_AGILE_HOST | 敏捷文件地址
-env.open.PRO_HTTP | 使用协议 http
-env.open.PRO_WEBSOCKET_SERVER | websocket 地址

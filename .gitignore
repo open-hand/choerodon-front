@@ -13,6 +13,7 @@ yarn-error.log
 
 # folder
 dist
+src
 # 自动更新目录，不要修改此目录里面的内容
 .yo-rc.json
 webpack/dist
