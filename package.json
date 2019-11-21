@@ -23,7 +23,6 @@
     "@choerodon/devops": "0.19.4",
     "@choerodon/agile": "0.19.1",
     "@choerodon/testmanager": "0.19.1",
-    "@choerodon/knowledge": "0.19.2",
-    "@choerodon/market": "0.19.0"
+    "@choerodon/knowledge": "0.19.2"
   }
 }
