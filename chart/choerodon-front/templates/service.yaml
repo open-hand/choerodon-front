@@ -25,13 +25,6 @@ spec:
       {{- if and (eq .Values.service.type "NodePort") .Values.service.ports.http.nodePort }}
       nodePort: {{ .Values.service.ports.http.nodePort }}
       {{- end }}
-    - port: {{ .Values.service.ports.actuator.port }}
-      targetPort: actuator
-      protocol: TCP
-      name: actuator
-      {{- if and (eq .Values.service.type "NodePort") .Values.service.ports.actuator.nodePort }}
-      nodePort: {{ .Values.service.ports.actuator.nodePort }}
-      {{- end }}
 {{- if .Values.service.externalIPs }}
   externalIPs:
 {{- range $i , $ip := .Values.service.externalIPs }}
