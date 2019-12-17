@@ -93,7 +93,7 @@ service:
 ## 日志收集
 logs:
   # 日志收集格式
-  parser: spring-boot
+  parser: nginx
 
 ## Ingress 相关配置
 ## ref: https://kubernetes.io/docs/concepts/services-networking/ingress/
