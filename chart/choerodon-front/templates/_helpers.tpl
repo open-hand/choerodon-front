@@ -8,12 +8,6 @@ The standard labels are frequently used in metadata.
 {{- printf "%s:%s" .Values.image.repository (default (.Chart.Version) .Values.image.tag) -}}
 {{- end -}}
 
-{{- define "service.microservice.labels" -}}
-choerodon.io/version: {{ default (.Chart.Version) .Values.image.tag }}
-choerodon.io/service: {{ .Chart.Name | quote }}
-choerodon.io/metrics-port: {{ .Values.env.open.MANAGEMENT_SERVER_PORT | quote }}
-{{- end -}}
-
 {{- define "service.labels.standard" -}}
 choerodon.io/release: {{ .Release.Name | quote }}
 {{- end -}}

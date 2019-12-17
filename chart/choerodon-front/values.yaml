@@ -89,16 +89,6 @@ service:
   # externalIPs:
   #   - externalIp1
   annotations: {}
-    # prometheus.io/scrape: 'true'
-    # prometheus.io/path: '/actuator/prometheus'
-    # prometheus.io/port: '8061'
-
-## 指标收集
-metrics:
-  # 收集应用的指标数据路径
-  path: /actuator/prometheus
-  # 性能指标应用分组
-  group: spring-boot
 
 ## 日志收集
 logs:
@@ -109,14 +99,14 @@ logs:
 ## ref: https://kubernetes.io/docs/concepts/services-networking/ingress/
 ##
 ingress:
-  enabled: false
+  enabled: true
   annotations: {}
     # kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
     # nginx.ingress.kubernetes.io/whitelist-source-range: 0.0.0.0/0
   path: /
-  host: choerodon-front.example.com
+  host: choerodon.example.com
   tls: []
-  # - secretName: choerodon-front-example-tls
+  # - secretName: choerodon-example-tls
   #   hosts:
-  #   - choerodon-front.example.com
+  #   - choerodon.example.com
