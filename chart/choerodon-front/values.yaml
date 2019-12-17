@@ -55,20 +55,6 @@ env:
     # 自定义主题颜色
     CUSTOM_THEME_COLOR: undefined
 
-## Liveness 和 Readiness 探针相关配置
-## ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/
-livenessProbe:
-  initialDelaySeconds: 180
-  periodSeconds: 30
-  timeoutSeconds: 3
-  successThreshold: 1
-  failureThreshold: 3
-readinessProbe:
-  initialDelaySeconds: 5
-  periodSeconds: 15
-  timeoutSeconds: 3
-  successThreshold: 1
-  failureThreshold: 3
 
 ## 资源请求和限制相关配置
 ## ref: http://kubernetes.io/docs/user-guide/compute-resources/
@@ -76,15 +62,10 @@ readinessProbe:
 resources:
   limits:
     # cpu: 100m
-    memory: 2Gi
+    memory: 128Mi
   requests:
     # cpu: 100m
-    memory: 2Gi
-
-## 插件相关配置
-plugins:
-  # skywalking agent 镜像地址
-  skywalkingAgentImage: registry.cn-shanghai.aliyuncs.com/c7n/skywalking-agent:6.5.0
+    memory: 128Mi
 
 ## service 相关设置
 ## ref: http://kubernetes.io/docs/user-guide/services/
