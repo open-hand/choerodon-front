@@ -23,6 +23,6 @@
     "@choerodon/manager": "0.20.0",
     "@choerodon/agile": "0.20.0",
     "@choerodon/testmanager": "0.20.1",
-    "@choerodon/knowledge": "0.20.0"
+    "@choerodon/knowledge": "0.20.1"
   }
 }
