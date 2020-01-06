@@ -20,7 +20,7 @@
     "@choerodon/asgard": "0.19.0",
     "@choerodon/notify": "0.19.0",
     "@choerodon/manager": "0.19.0",
-    "@choerodon/devops": "0.19.4",
+    "@choerodon/devops": "0.19.5",
     "@choerodon/agile": "0.19.1",
     "@choerodon/testmanager": "0.19.1",
     "@choerodon/knowledge": "0.19.2"
