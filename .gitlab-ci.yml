@@ -1,4 +1,3 @@
-
 image: registry.cn-hangzhou.aliyuncs.com/choerodon-tools/cibase:0.8.1
 
 stages:
@@ -9,7 +8,7 @@ build:
   stage: build
   script:
     - npm run clean
-    - npm i --registry ${NPM_REPO} --sass-binary-site=http://npm.taobao.org/mirrors/node-sass
+    - npm i --registry ${NPM_REPO}
     - chmod -R 777 node_modules
     - npm run dist
     - cp -r src/main/resources/lib $CI_PROJECT_DIR/docker/lib
