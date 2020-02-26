@@ -83,7 +83,7 @@ service:
   ports:
     # 服务端口
     http:
-      port: 80
+      port: 8080
       nodePort: 30118
   ## externalIPs 设置
   # externalIPs:
