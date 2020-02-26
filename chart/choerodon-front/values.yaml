@@ -1,48 +1,112 @@
-# Default values for choerodon-front.
-# This is a YAML-formatted file.
-# Declare variables to be passed into your templates.
-
+## 实例运行数量
 replicaCount: 1
 
+## 设置默认的 image、imageTag 和 imagePullPolicy。
 image:
-  repository: registry.choerodon.com.cn/choerodon/choerodon-front
-  pullPolicy: Always
+  repository: registry.cn-shanghai.aliyuncs.com/c7n/choerodon-front
+  tag: ~
+  pullPolicy: IfNotPresent
 
-logs:
-  parser: nginx
+## Deployment 更新策略
+deploymentUpdate:
+  type: RollingUpdate
+  maxUnavailable: 0
+  maxSurge: 100%
 
-service:
-  enabled: false
-  port: 80
-  type: ClusterIP
-  name: choerodon-front
+## Pod 优先级设置
+## ref: https://kubernetes.io/docs/concepts/configuration/pod-priority-preemption/
+##
+priorityClassName: ""
 
-ingress:
-  enabled: false
-  host: choerodon.example.com
+## Pod 节点分配
+## ref: https://kubernetes.io/docs/user-guide/node-selection/
+##
+nodeSelector: {}
+tolerations: []
+affinity: {}
 
+## 给 Pod 附加的 annotations
+podAnnotations: {}
+
+## ## Pod 附加的 labels
+podLabels: {}
+
+## 实例运行时的环境变量
 env:
   open:
+    # 网管地址
     API_HOST: http://gateway.example.com
+    # websocket地址
     WEBSOCKET_SERVER: ws://ws.example.com
+    # 文件服务地址
     FILE_SERVER: http://minio.example.com
+    # cookie服务器地址
     COOKIE_SERVER: http://choerodon.example.com
+    # devops服务地址
     DEVOPS_HOST: ws://devops.choerodon.example.com
+    # buzz_websocket地址
     BUZZ_WEBSOCKET_URL: ws://buzz.example.com
+    # 客户端id
     CLIENT_ID: choerodon
+    # http协议
     HTTP: http
+    # 本地化
     LOCAL: false
+    # 自定义主题颜色
     CUSTOM_THEME_COLOR: undefined
 
-    
-resources: 
-  # We usually recommend not to specify default resources and to leave this as a conscious
-  # choice for the user. This also increases chances charts run on environments with little
-  # resources,such as Minikube. If you do want to specify resources,uncomment the following
-  # lines,adjust them as necessary,and remove the curly braces after 'resources:'.
+
+## 资源请求和限制相关配置
+## ref: http://kubernetes.io/docs/user-guide/compute-resources/
+##
+resources:
   limits:
     # cpu: 100m
-    # memory: 2Gi
+    memory: 128Mi
   requests:
     # cpu: 100m
-    # memory: 1Gi
+    memory: 128Mi
+
+## service 相关设置
+## ref: http://kubernetes.io/docs/user-guide/services/
+##
+service:
+  # 是否启用 service 暴露本服务
+  enabled: true
+  # Service 名称
+  name: choerodon-front
+  # Service 类型
+  type: ClusterIP
+  # 指定 service 的 clusterIP
+  clusterIP: ~
+  # 端口设置
+  ports:
+    # 服务端口
+    http:
+      port: 80
+      nodePort: 30118
+  ## externalIPs 设置
+  # externalIPs:
+  #   - externalIp1
+  annotations: {}
+
+## 日志收集
+logs:
+  # 日志收集格式
+  parser: nginx
+
+## Ingress 相关配置
+## ref: https://kubernetes.io/docs/concepts/services-networking/ingress/
+##
+ingress:
+  enabled: false
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+    # nginx.ingress.kubernetes.io/whitelist-source-range: 0.0.0.0/0
+  path: /
+  host: choerodon.example.com
+  tls: []
+  # - secretName: choerodon-example-tls
+  #   hosts:
+  #   - choerodon.example.com

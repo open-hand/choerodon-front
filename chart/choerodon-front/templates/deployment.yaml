@@ -1,4 +1,4 @@
-apiVersion: apps/v1beta2
+apiVersion: {{ include "app.deployment.apiVersion" . }}
 kind: Deployment
 metadata:
   name: {{ .Release.Name }}
@@ -12,12 +12,19 @@ spec:
 {{ include "service.labels.standard" . | indent 6 }}
   template:
     metadata:
+      annotations:
+{{- if .Values.podAnnotations }}
+{{ toYaml .Values.podAnnotations | trimSuffix "\n" | indent 8 }}
+{{- end }}
       labels:
+{{- if .Values.podLabels }}
+{{ toYaml .Values.podLabels | indent 8 }}
+{{- end }}
 {{ include "service.labels.standard" . | indent 8 }}
     spec:
       containers:
         - name: {{ .Release.Name }}
-          image: "{{ .Values.image.repository }}:{{ .Chart.Version }}"
+          image: {{ include "service.image" . }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
 {{- range $name, $value := .Values.env.open }}
@@ -28,7 +35,19 @@ spec:
 {{- end }}
           ports:
             - name: http
-              containerPort: {{ .Values.service.port }}
+              containerPort: 80
               protocol: TCP
           resources:
 {{ toYaml .Values.resources | indent 12 }}
+{{- with .Values.nodeSelector }}
+      nodeSelector:
+{{ toYaml . | indent 8 }}
+{{- end }}
+{{- with .Values.affinity }}
+      affinity:
+{{ toYaml . | indent 8 }}
+{{- end }}
+{{- with .Values.tolerations }}
+      tolerations:
+{{ toYaml . | indent 8 }}
+{{- end }}
