@@ -90,8 +90,9 @@ service:
   #   - externalIp1
   annotations: {}
 
-## 日志收集
+# 是否收集日志至EFK
 logs:
+  enabled: false
   # 日志收集格式
   parser: nginx
 
