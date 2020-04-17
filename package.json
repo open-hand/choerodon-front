@@ -4,9 +4,10 @@
   "version": "0.21.2",
   "description": "Choerodon Front",
   "scripts": {
-    "start": "choerodon-front-boot start --config ./react/config.js",
+    "start": "node --max_old_space_size=4096 node_modules/@choerodon/boot/bin/choerodon-front-boot-start --config ./react/config.js",
     "dist": "node --max_old_space_size=4096 node_modules/@choerodon/boot/bin/choerodon-front-boot-dist --config ./react/config.js",
-    "clean": "rm -rf ./src"
+    "clean": "rm -rf ./src",
+    "postinstall": "patch-package"
   },
   "contributors": [
     "choerodon"
@@ -23,6 +24,8 @@
     "@choerodon/manager": "0.20.1",
     "@choerodon/agile": "0.21.3",
     "@choerodon/testmanager": "0.21.0",
-    "@choerodon/knowledge": "0.21.0"
+    "@choerodon/knowledge": "0.21.0",
+    "patch-package": "^6.2.2",
+    "postinstall-postinstall": "^2.1.0"
   }
 }
