@@ -18,7 +18,7 @@
     "@choerodon/master": "0.21.1",
     "choerodon-ui": "0.8.57",
     "@choerodon/base": "0.21.4",
-    "@choerodon/devops": "0.21.2",
+    "@choerodon/devops": "0.21.3",
     "@choerodon/asgard": "0.21.0",
     "@choerodon/notify": "0.21.0",
     "@choerodon/manager": "0.20.1",
