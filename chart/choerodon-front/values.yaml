@@ -56,10 +56,6 @@ env:
     HZERO_FRONT: http://hzero-front.example.com
     # devops_websocket_key
     DEVOPS_WEBSOCKET_SECRET_KEY: example
-    # 不允许注册的邮箱
-    EMAIL_BLACK_LIST: qq.com,gmail.com,sina.com,163.com,sina.cn,126.com,yeah.net,189.cn,foxmail.com,msn.cn,hotmail.com,outlook.com,yahoo.com,139.com
-    # 不需要认证的页面
-    outward: /knowledge/share,/iam/register-organization,/iam/invite-user
 
 ## 资源请求和限制相关配置
 ## ref: http://kubernetes.io/docs/user-guide/compute-resources/
