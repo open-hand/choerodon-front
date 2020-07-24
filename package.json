@@ -22,7 +22,7 @@
     "@choerodon/notify": "0.22.2",
     "@choerodon/manager": "0.22.0",
     "@choerodon/agile": "0.22.4",
-    "@choerodon/testmanager": "0.22.0",
+    "@choerodon/testmanager": "0.22.1",
     "@choerodon/knowledge": "0.22.0"
   }
 }
