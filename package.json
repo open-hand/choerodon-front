@@ -16,7 +16,7 @@
     "@choerodon/boot": "0.21.4",
     "@choerodon/master": "0.22.1",
     "choerodon-ui": "0.8.63",
-    "@choerodon/base": "0.22.3",
+    "@choerodon/base": "0.22.4",
     "@choerodon/devops": "0.22.4",
     "@choerodon/asgard": "0.22.1",
     "@choerodon/notify": "0.22.2",
