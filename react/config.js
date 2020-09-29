@@ -15,6 +15,8 @@ const config = {
     "@choerodon/testmanager",
     "@choerodon/knowledge",
     "@choerodon/devops",
+    "@choerodon/code-repo",
+    "@choerodon/prod-repo",
   ],
   resourcesLevel: ['site', 'organization', 'project', 'user'],
   emailBlackList: 'qq.com,gmail.com,sina.com,163.com,sina.cn,126.com,yeah.net,189.cn'
