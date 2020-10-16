@@ -1,7 +1,7 @@
 {
   "name": "@choerodon/choerodon-front",
   "routeName": "c7n",
-  "version": "0.21.0",
+  "version": "0.23.0",
   "description": "Choerodon Front",
   "scripts": {
     "start": "choerodon-front-boot start --config ./react/config.js",
@@ -13,16 +13,18 @@
   ],
   "license": "ISC",
   "dependencies": {
-    "@choerodon/boot": "0.20.0",
-    "@choerodon/master": "0.21.0",
-    "choerodon-ui": "^0.8.11",
-    "@choerodon/base": "0.21.0",
-    "@choerodon/devops": "0.21.0",
-    "@choerodon/asgard": "0.21.0",
-    "@choerodon/notify": "0.21.0",
-    "@choerodon/manager": "0.20.0",
-    "@choerodon/agile": "0.21.0",
-    "@choerodon/testmanager": "0.21.0",
-    "@choerodon/knowledge": "0.21.0"
+    "@choerodon/boot": "0.21.4",
+    "@choerodon/master": "0.23.5",
+    "choerodon-ui": "0.8.71",
+    "@choerodon/base": "0.23.3",
+    "@choerodon/devops": "0.23.4",
+    "@choerodon/asgard": "0.23.4",
+    "@choerodon/notify": "0.23.4",
+    "@choerodon/manager": "0.22.2",
+    "@choerodon/agile": "0.23.5",
+    "@choerodon/testmanager": "0.23.1",
+    "@choerodon/knowledge": "0.23.0",
+    "@choerodon/code-repo": "0.23.0",
+    "@choerodon/prod-repo": "0.23.0"
   }
 }

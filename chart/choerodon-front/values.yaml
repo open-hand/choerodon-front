@@ -34,27 +34,28 @@ podLabels: {}
 ## 实例运行时的环境变量
 env:
   open:
+    # 本地化
+    LOCAL: false
+    # 客户端id
+    CLIENT_ID: choerodon
     # 网管地址
     API_HOST: http://gateway.example.com
+    # devops服务地址
+    DEVOPS_HOST: ws://devops.choerodon.example.com
+    # 标签页标题
+    HEADER_TITLE_NAME: Choerodon | 多云应用技术集成平台
+    # cookie服务器地址
+    COOKIE_SERVER: http://choerodon.example.com
+    # 标题
+    TITLE_NAME: Choerodon | 多云应用技术集成平台
     # websocket地址
     WEBSOCKET_SERVER: ws://ws.example.com
     # 文件服务地址
     FILE_SERVER: http://minio.example.com
-    # cookie服务器地址
-    COOKIE_SERVER: http://choerodon.example.com
-    # devops服务地址
-    DEVOPS_HOST: ws://devops.choerodon.example.com
-    # buzz_websocket地址
-    BUZZ_WEBSOCKET_URL: ws://buzz.example.com
-    # 客户端id
-    CLIENT_ID: choerodon
-    # http协议
-    HTTP: http
-    # 本地化
-    LOCAL: false
-    # 自定义主题颜色
-    CUSTOM_THEME_COLOR: undefined
-
+    # hzero前端地址
+    HZERO_FRONT: http://hzero-front.example.com
+    # devops_websocket_key
+    DEVOPS_WEBSOCKET_SECRET_KEY: example
 
 ## 资源请求和限制相关配置
 ## ref: http://kubernetes.io/docs/user-guide/compute-resources/

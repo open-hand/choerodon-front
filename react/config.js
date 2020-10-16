@@ -3,13 +3,6 @@ const config = {
   theme: {
     'primary-color': '#3F51B5',
   },
-  cookieServer: '',
-  clientId: 'localhost', // 必须填入响应的客户端（本地开发）
-  cookieServer: '', //子域名token共享
-  titlename: 'Choerodon | 多云应用技术集成平台',
-  server: 'http://api.choerodon.example.com',
-  fileServer: 'http://minio.choerodon.example.com',
-  webSocketServer: 'ws://notify.choerodon.example.com',
   buildType: 'single',
   projectType: 'choerodon',
   master: './node_modules/@choerodon/master/lib/master.js',
@@ -22,9 +15,11 @@ const config = {
     "@choerodon/testmanager",
     "@choerodon/knowledge",
     "@choerodon/devops",
+    "@choerodon/code-repo",
+    "@choerodon/prod-repo",
   ],
   resourcesLevel: ['site', 'organization', 'project', 'user'],
-  outward: '/knowledge/share',
+  emailBlackList: 'qq.com,gmail.com,sina.com,163.com,sina.cn,126.com,yeah.net,189.cn'
 };
 
 module.exports = config;
