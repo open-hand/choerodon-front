@@ -28,7 +28,7 @@
     "@choerodon/prod-repo": "0.24.0"
   },
   "devDependencies": {
-    "esbuild-webpack-plugin": "^1.0.5",
+    "esbuild-webpack-plugin": "^1.0.5"
   }
 
 }
