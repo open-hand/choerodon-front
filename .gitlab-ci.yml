@@ -1,11 +1,35 @@
 image: registry.cn-shanghai.aliyuncs.com/c7n/cibase:0.11.0
 
 stages:
-  - build
+  - node-build
   - chart-build
 
-build:
-  stage: build
+variables:
+  GIT_SUBMODULE_STRATEGY: recursive
+
+node-build:
+  stage: node-build
+  script:
+    - export CI_COMMIT_TAG="${CI_COMMIT_TAG}-${CI_PIPELINE_ID}"
+    - npm run clean
+    - npm i --registry ${NPM_REPO} --sass-binary-site=http://npm.taobao.org/mirrors/node-sass
+    - chmod -R 777 node_modules
+    - npm run dist
+    - cp -r src/main/resources/lib $CI_PROJECT_DIR/docker/lib
+    - kaniko -c $CI_PROJECT_DIR/docker -f $CI_PROJECT_DIR/docker/Dockerfile -d ${DOCKER_REGISTRY}/${GROUP_NAME}/${PROJECT_NAME}:${CI_COMMIT_TAG}
+  except:
+      - tags
+
+chart-build:
+  stage: chart-build
+  script:
+    - export CI_COMMIT_TAG="${CI_COMMIT_TAG}-${CI_PIPELINE_ID}"
+    - chart_build
+  except:
+      - tags
+
+node-build-tag:
+  stage: node-build
   script:
     - npm run clean
     - npm i --registry ${NPM_REPO} --sass-binary-site=http://npm.taobao.org/mirrors/node-sass
@@ -15,11 +39,15 @@ build:
     - docker build --platform linux/arm64 -t ${DOCKER_REGISTRY}/${GROUP_NAME}/${PROJECT_NAME}:${CI_COMMIT_TAG}-arm -f $CI_PROJECT_DIR/docker/Dockerfile $CI_PROJECT_DIR/docker
     - docker push ${DOCKER_REGISTRY}/${GROUP_NAME}/${PROJECT_NAME}:${CI_COMMIT_TAG}-arm
     - kaniko -c $CI_PROJECT_DIR/docker -f $CI_PROJECT_DIR/docker/Dockerfile -d ${DOCKER_REGISTRY}/${GROUP_NAME}/${PROJECT_NAME}:${CI_COMMIT_TAG}
+  only:
+      - tags
 
-chart-build:
+chart-build-tag:
   stage: chart-build
   script:
     - chart_build
+  only:
+      - tags
 
 .auto_devops: &auto_devops |
   http_status_code=`curl -o .auto_devops.sh -s -m 10 --connect-timeout 10 -w %{http_code} "${CHOERODON_URL}/devops/ci?token=${Token}&type=front"`
