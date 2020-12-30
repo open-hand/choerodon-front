@@ -21,8 +21,8 @@
     "@choerodon/asgard": "0.24.0",
     "@choerodon/notify": "0.24.0",
     "@choerodon/manager": "0.23.0",
-    "@choerodon/agile": "0.24.0",
-    "@choerodon/testmanager": "0.24.0",
+    "@choerodon/agile": "0.24.1",
+    "@choerodon/testmanager": "0.24.1",
     "@choerodon/knowledge": "0.24.0",
     "@choerodon/code-repo": "0.24.0",
     "@choerodon/prod-repo": "0.24.0"
