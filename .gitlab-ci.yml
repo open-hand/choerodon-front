@@ -12,7 +12,7 @@ node-build:
   script:
     - export CI_COMMIT_TAG="${CI_COMMIT_TAG}-${CI_PIPELINE_ID}"
     - npm run clean
-    - npm i --registry ${NPM_REPO} --sass-binary-site=http://npm.taobao.org/mirrors/node-sass
+    - ayrn install --registry ${NPM_REPO} --sass-binary-site=http://npm.taobao.org/mirrors/node-sass
     - chmod -R 777 node_modules
     - npm run dist
     - cp -r src/main/resources/lib $CI_PROJECT_DIR/docker/lib
@@ -32,7 +32,7 @@ node-build-tag:
   stage: node-build
   script:
     - npm run clean
-    - npm i --registry ${NPM_REPO} --sass-binary-site=http://npm.taobao.org/mirrors/node-sass
+    - yarn install --registry ${NPM_REPO} --sass-binary-site=http://npm.taobao.org/mirrors/node-sass
     - chmod -R 777 node_modules
     - npm run dist
     - cp -r src/main/resources/lib $CI_PROJECT_DIR/docker/lib
