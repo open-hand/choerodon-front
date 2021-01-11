@@ -1,0 +1,22 @@
+"@hzero-front-ui/cfg@2.0.7-alpha-c7n.6", "@hzero-front-ui/cfg@^2.0.7-alpha-c7n.6":
+  version "2.0.7-alpha-c7n.6"
+  resolved "http://nexus.saas.hand-china.com/repository/hzero-npm-group/@hzero-front-ui/cfg/-/cfg-2.0.7-alpha-c7n.6.tgz#744bf8b9bdb4b0515fba82d8c54754c36c0179c0"
+  integrity sha512-xy74xdnC5PtuASnaBM/hnELuCdBL6a3+2QsLXtoMHGVDXDVS3xRfxuyCCGCSTroso2ARaWdqStouPuZ4zLzScQ==
+  dependencies:
+    "@hzero-front-ui/font" "^2.0.5-alpha-c7n.6"
+    memoize-one "^5.1.1"
+    
+"@hzero-front-ui/font@^2.0.5-alpha-c7n.6":
+  version "2.0.5-alpha-c7n.6"
+  resolved "http://nexus.saas.hand-china.com/repository/hzero-npm-group/@hzero-front-ui/font/-/font-2.0.5-alpha-c7n.6.tgz#4b8e53a0cec0a3c0246ce941d1b284a435fd6a16"
+  integrity sha512-7Xb1zF1ipAiUvWLxKpaGmSAPd1qAuoM0cfC+DtLDGIKZRldtFzWCPFPkmYIxdHnAl4wStoF8lmDOIIJZq61MYQ==
+
+"@hzero-front-ui/c7n-ui@^2.0.7-alpha-c7n.6":
+  version "2.0.7-alpha-c7n.6"
+  resolved "http://nexus.saas.hand-china.com/repository/hzero-npm-group/@hzero-front-ui/c7n-ui/-/c7n-ui-2.0.7-alpha-c7n.6.tgz#6fd931c81fd27fc1c6187ffdeb68ec51468c7a32"
+  integrity sha512-AP7cWONST+TKxSVks1ICbuUVx/qln0UqBLTiad4dZROI1P9USHqysjsjJRKlI36QrwJoz/dXHMdGMytb7kWTFQ==  
+  
+"@hzero-front-ui/hzero-ui@2.0.7-alpha-c7n.6":
+  version "2.0.7-alpha-c7n.6"
+  resolved "http://nexus.saas.hand-china.com/repository/hzero-npm-group/@hzero-front-ui/hzero-ui/-/hzero-ui-2.0.7-alpha-c7n.6.tgz#2852454b3567b8de7aec9c5cb845cb90cbb1a03a"
+  integrity sha512-4cWO6JNGZ/fcANPlU3Ymbahj31nEqe9HhirZStcot0QHrqpUWjYjm4+efQVyfDJFvzRNfG/6M86cF4150qJfsA==
