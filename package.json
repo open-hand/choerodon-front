@@ -12,6 +12,10 @@
     "choerodon"
   ],
   "license": "ISC",
+  "resolutions": {
+    "react": "16.14.0",
+    "react-dom": "16.14.0"
+  },
   "dependencies": {
     "@choerodon/boot": "0.23.0-test",
     "@choerodon/master": "0.25.0",
