@@ -19,8 +19,8 @@
   "dependencies": {
     "@choerodon/boot": "0.23.0",
     "@choerodon/master": "0.25.1",
-    "@choerodon/base": "0.25.1",
-    "@choerodon/devops": "0.25.1",
+    "@choerodon/base": "0.25.2",
+    "@choerodon/devops": "0.25.2",
     "@choerodon/asgard": "0.25.0",
     "@choerodon/notify": "0.25.1",
     "@choerodon/manager": "0.23.1",
