@@ -11,9 +11,11 @@ node-build:
   stage: node-build
   script:
     - export CI_COMMIT_TAG="${CI_COMMIT_TAG}-${CI_PIPELINE_ID}"
-    - npm run clean
-    - npm install --registry ${NPM_REPO} --sass-binary-site=http://npm.taobao.org/mirrors/node-sass
-    - chmod -R 777 node_modules
+    - npm config set "//${NPM_REPO}:_authToken" "${NPM_TOKEN}"
+    - npm config set "//${NPM_REGISTRY}:_authToken" "${NPM_TOKEN}"
+    - npm config set always-auth true
+    - npm install --registry "https://${NPM_REPO}"
+    - chmod -R 755 node_modules
     - npm run dist
     - cp -r src/main/resources/lib $CI_PROJECT_DIR/docker/lib
     - kaniko -c $CI_PROJECT_DIR/docker -f $CI_PROJECT_DIR/docker/Dockerfile -d ${DOCKER_REGISTRY}/${GROUP_NAME}/${PROJECT_NAME}:${CI_COMMIT_TAG}
@@ -31,9 +33,11 @@ chart-build:
 node-build-tag:
   stage: node-build
   script:
-    - npm run clean
-    - yarn install --registry ${NPM_REPO} --sass-binary-site=http://npm.taobao.org/mirrors/node-sass
-    - chmod -R 777 node_modules
+    - npm config set "//${NPM_REPO}:_authToken" "${NPM_TOKEN}"
+    - npm config set "//${NPM_REGISTRY}:_authToken" "${NPM_TOKEN}"
+    - npm config set always-auth true
+    - npm install --registry "https://${NPM_REPO}"
+    - chmod -R 755 node_modules
     - npm run dist
     - cp -r src/main/resources/lib $CI_PROJECT_DIR/docker/lib
     - docker build --platform linux/arm64 -t ${DOCKER_REGISTRY}/${GROUP_NAME}/${PROJECT_NAME}:${CI_COMMIT_TAG}-arm -f $CI_PROJECT_DIR/docker/Dockerfile $CI_PROJECT_DIR/docker
