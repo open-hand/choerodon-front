@@ -19,16 +19,16 @@
   "dependencies": {
     "@choerodon/boot": "0.23.1",
     "@choerodon/master": "0.25.6",
-    "@choerodon/base": "0.25.4",
-    "@choerodon/devops": "0.25.6",
+    "@choerodon/base": "0.25.5",
+    "@choerodon/devops": "0.25.7",
     "@choerodon/asgard": "0.25.1",
-    "@choerodon/notify": "0.25.2",
+    "@choerodon/notify": "0.25.3",
     "@choerodon/manager": "0.23.1",
     "@choerodon/agile": "0.25.4",
     "@choerodon/testmanager": "0.25.2",
     "@choerodon/knowledge": "0.25.0",
     "@choerodon/code-repo": "0.25.2",
-    "@choerodon/prod-repo": "0.25.1"
+    "@choerodon/prod-repo": "0.25.2"
   },
   "devDependencies": {
     "esbuild-webpack-plugin": "^1.0.5",
