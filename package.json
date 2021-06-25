@@ -18,17 +18,17 @@
   },
   "dependencies": {
     "@choerodon/boot": "0.23.2",
-    "@choerodon/master": "1.0.0",
-    "@choerodon/base": "1.0.0",
-    "@choerodon/devops": "1.0.0",
+    "@choerodon/master": "1.0.2",
+    "@choerodon/base": "1.0.2",
+    "@choerodon/devops": "1.0.2",
     "@choerodon/asgard": "1.0.0",
     "@choerodon/notify": "1.0.0",
     "@choerodon/manager": "1.0.0",
-    "@choerodon/agile": "1.0.0",
-    "@choerodon/testmanager": "1.0.0",
+    "@choerodon/agile": "1.0.1",
+    "@choerodon/testmanager": "1.0.1",
     "@choerodon/knowledge": "1.0.0",
-    "@choerodon/code-repo": "1.0.0",
-    "@choerodon/prod-repo": "1.0.0"
+    "@choerodon/code-repo": "1.0.1",
+    "@choerodon/prod-repo": "1.0.1"
   },
   "devDependencies": {
     "esbuild-webpack-plugin": "^1.0.5",
