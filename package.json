@@ -17,10 +17,10 @@
     "react-dom": "16.14.0"
   },
   "dependencies": {
-    "@choerodon/boot": "0.23.2",
-    "@choerodon/master": "1.0.2",
-    "@choerodon/base": "1.0.2",
-    "@choerodon/devops": "1.0.2",
+    "@choerodon/boot": "0.23.3",
+    "@choerodon/master": "1.0.4",
+    "@choerodon/base": "1.0.4",
+    "@choerodon/devops": "1.0.4",
     "@choerodon/asgard": "1.0.0",
     "@choerodon/notify": "1.0.0",
     "@choerodon/manager": "1.0.0",
