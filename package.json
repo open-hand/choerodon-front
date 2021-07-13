@@ -19,7 +19,7 @@
   "dependencies": {
     "@choerodon/boot": "0.23.3",
     "@choerodon/master": "1.0.7",
-    "@choerodon/base": "1.0.5",
+    "@choerodon/base": "1.0.6",
     "@choerodon/devops": "1.0.7",
     "@choerodon/asgard": "1.0.0",
     "@choerodon/notify": "1.0.0",
@@ -27,7 +27,7 @@
     "@choerodon/agile": "1.0.3",
     "@choerodon/testmanager": "1.0.1",
     "@choerodon/knowledge": "1.0.2",
-    "@choerodon/code-repo": "1.0.1",
+    "@choerodon/code-repo": "1.0.8",
     "@choerodon/prod-repo": "1.0.1"
   },
   "devDependencies": {
