@@ -27,7 +27,7 @@
     "@choerodon/agile": "1.0.3",
     "@choerodon/testmanager": "1.0.1",
     "@choerodon/knowledge": "1.0.2",
-    "@choerodon/code-repo": "1.0.8",
+    "@choerodon/code-repo": "1.0.1",
     "@choerodon/prod-repo": "1.0.1"
   },
   "devDependencies": {
