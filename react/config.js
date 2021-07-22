@@ -1,8 +1,5 @@
 const config = {
   local: true, //是否为本地开发
-  theme: {
-    'primary-color': '#3F51B5',
-  },
   buildType: 'single',
   projectType: 'choerodon',
   master: './node_modules/@choerodon/master/lib/master.js',
