@@ -1,114 +1,530 @@
-## 实例运行数量
+## Global Docker image parameters
+## Please, note that this will override the image parameters, including dependencies, configured to use the global value
+## Current available global Docker image parameters: imageRegistry and imagePullSecrets
+##
+global:
+  # -- Global Docker image registry
+  imageRegistry:
+  # -- Global Docker registry secret names as an array
+  ## E.g.
+  ## imagePullSecrets:
+  ##   - myRegistryKeySecretName
+  ##
+  imagePullSecrets: []
+  # -- Global StorageClass for Persistent Volume(s)
+  storageClass:
+
+# -- String to partially override common.names.fullname template (will maintain the release name)
+##
+nameOverride:
+
+# -- String to fully override common.names.fullname template
+##
+fullnameOverride:
+
+# -- Force target Kubernetes version (using Helm capabilites if not set)
+##
+kubeVersion:
+
+## service image version
+## ref: https://github.com/open-hand/server
+##
+image:
+  # -- service image registry
+  registry: registry.cn-shanghai.aliyuncs.com
+  # -- service image repository
+  repository: c7n/choerodon-front-business
+  # -- (string) service image tag. Default Chart.AppVersion
+  tag: ~
+  # -- Specify a imagePullPolicy.
+  # Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
+  ## ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
+  ##
+  pullPolicy: IfNotPresent
+  # -- Optionally specify an array of imagePullSecrets.
+  # Secrets must be manually created in the namespace.
+  ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
+  ## e.g:
+  ## pullSecrets:
+  ##   - myRegistryKeySecretName
+  ##
+  pullSecrets: []
+
+## Service operating environment
+##
+base:
+  # -- Java base image registry
+  registry: registry.cn-shanghai.aliyuncs.com
+  # -- Java base image repository
+  repository: c7n/frontbase
+  # -- Java base image tag
+  tag: 0.10.0
+  # -- Specify a imagePullPolicy
+  ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
+  ## ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
+  ##
+  pullPolicy: IfNotPresent
+  # -- Optionally specify an array of imagePullSecrets.
+  ## Secrets must be manually created in the namespace.
+  ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
+  ## e.g:
+  ## pullSecrets:
+  ##   - myRegistryKeySecretName
+  ##
+  pullSecrets: []
+
+# -- Add labels to all the deployed resources
+##
+commonLabels: {}
+
+# -- Add annotations to all the deployed resources
+##
+commonAnnotations: {}
+
+## An array to add extra env vars
+## e.g:
+## extraEnv:
+##   FOO: "bar"
+##
+extraEnv: 
+  # 本地化
+  LOCAL: false
+  # 客户端id
+  CLIENT_ID: choerodon
+  # 网管地址
+  API_HOST: http://gateway.example.com
+  # devops服务地址
+  DEVOPS_HOST: ws://devops.choerodon.example.com
+  # 标签页标题
+  HEADER_TITLE_NAME: Choerodon | 多云应用技术集成平台
+  # cookie服务器地址
+  COOKIE_SERVER: http://choerodon.example.com
+  # 标题
+  TITLE_NAME: Choerodon | 多云应用技术集成平台
+  # websocket地址
+  WEBSOCKET_SERVER: ws://ws.example.com
+  # 文件服务地址
+  FILE_SERVER: http://minio.example.com
+  # hzero前端地址
+  HZERO_FRONT: http://hzero-front.example.com
+  # devops_websocket_key
+  DEVOPS_WEBSOCKET_SECRET_KEY: example    
+  # 不允许注册的邮箱
+  EMAIL_BLACK_LIST: qq.com,gmail.com,sina.com,163.com,sina.cn,126.com,yeah.net,189.cn,foxmail.com,msn.cn,hotmail.com,outlook.com,yahoo.com,139.com
+  # 不需要认证的页面
+  outward: /knowledge/share,/iam/register-organization,/iam/invite-user,/saas/register-saas
+  onlyofficeApi: http://onlyoffice.example.com
+  BUSINESS: true
+  NON_INSTALL_MARKET: true
+
+# -- ConfigMap with extra environment variables
+##
+extraEnvVarsCM: ""
+
+# -- Secret with extra environment variables
+##
+extraEnvVarsSecret: ""
+
+# -- Container's working directory(Default mountPath).
+##
+workingDir: /usr/share/nginx/html
+
+# -- Command for running the server container (set to default if not set). Use array form
+##
+command: []
+
+# -- Args for running the server container (set to default if not set). Use array form
+##
+args: []
+
+# -- Scheduler name
+## https://kubernetes.io/docs/tasks/administer-cluster/configure-multiple-schedulers/
+##
+schedulerName: 
+
+# -- EnableServiceLinks indicates whether information about services should be injected into pod's environment variables, 
+# matching the syntax of Docker links. Optional: Defaults to false.
+## 
+enableServiceLinks: false
+
+# -- AutomountServiceAccountToken indicates whether a service account token should be automatically mounted.
+## 
+automountServiceAccountToken: false
+
+## server deployment parameters
+## The deployment strategy to use to replace existing pods with new ones.
+## ref: https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#strategy
+## e.g:
+## updateStrategy:
+##  type: Recreate
+##
+updateStrategy:
+  # -- Type of deployment. Can be "Recreate" or "RollingUpdate". Default is RollingUpdate.
+  type: RollingUpdate
+  # -- Rolling update config params. Present only if DeploymentStrategyType = RollingUpdate.
+  rollingUpdate:
+    maxSurge: 100%
+    maxUnavailable: 0
+
+# -- Number of deployment replicas
+##
 replicaCount: 1
 
-## 设置默认的 image、imageTag 和 imagePullPolicy。
-image:
-  repository: registry.cn-shanghai.aliyuncs.com/c7n/choerodon-front
-  tag: ~
-  pullPolicy: IfNotPresent
-
-## Deployment 更新策略
-deploymentUpdate:
-  type: RollingUpdate
-  maxUnavailable: 0
-  maxSurge: 100%
-
-## Pod 优先级设置
-## ref: https://kubernetes.io/docs/concepts/configuration/pod-priority-preemption/
+# -- server pod host aliases
+## https://kubernetes.io/docs/concepts/services-networking/add-entries-to-pod-etc-hosts-with-host-aliases/
 ##
-priorityClassName: ""
+hostAliases: []
 
-## Pod 节点分配
+## server container ports to open
+##
+containerPort: 
+  # --  server port
+  serverPort: 8080
+
+# -- Security Context
+## ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
+##
+securityContext:
+  enabled: true
+  fsGroup: 101
+  runAsUser: 101
+
+# -- Pod labels
+## Ref: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/
+##
+podLabels: {}
+
+# -- Pod annotations
+## ref: https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/
+##
+podAnnotations: {}
+
+# -- Pod affinity preset.
+# Allowed values: soft, hard
+## ref: https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#inter-pod-affinity-and-anti-affinity
+##
+podAffinityPreset: ""
+
+# -- Pod anti-affinity preset.
+# Allowed values: soft, hard
+## ref: https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#inter-pod-affinity-and-anti-affinity
+##
+podAntiAffinityPreset: soft
+
+## Node affinity preset.
+## Allowed values: soft, hard
+## ref: https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#node-affinity
+##
+nodeAffinityPreset:
+  # -- Node affinity type.
+  # Allowed values: soft, hard
+  ##
+  type: ""
+  # -- Node label key to match
+  ## E.g.
+  ## key: "kubernetes.io/e2e-az-name"
+  ##
+  key: ""
+  # -- Node label values to match
+  ## E.g.
+  ## values:
+  ##   - e2e-az1
+  ##   - e2e-az2
+  ##
+  values: []
+
+# -- Affinity for pod assignment. Evaluated as a template.
+# Note: podAffinityPreset, podAntiAffinityPreset, and nodeAffinityPreset will be ignored when it's set
+## ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity
+##
+affinity: {}
+
+# -- Node labels for pod assignment. Evaluated as a template.
 ## ref: https://kubernetes.io/docs/user-guide/node-selection/
 ##
 nodeSelector: {}
+
+# -- Tolerations for pod assignment. Evaluated as a template.
+## ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
+##
 tolerations: []
-affinity: {}
 
-## 给 Pod 附加的 annotations
-podAnnotations: {}
-
-## ## Pod 附加的 labels
-podLabels: {}
-
-## 实例运行时的环境变量
-env:
-  open:
-    # 本地化
-    LOCAL: false
-    # 客户端id
-    CLIENT_ID: choerodon
-    # 网管地址
-    API_HOST: http://gateway.example.com
-    # devops服务地址
-    DEVOPS_HOST: ws://devops.choerodon.example.com
-    # 标签页标题
-    HEADER_TITLE_NAME: Choerodon | 多云应用技术集成平台
-    # cookie服务器地址
-    COOKIE_SERVER: http://choerodon.example.com
-    # 标题
-    TITLE_NAME: Choerodon | 多云应用技术集成平台
-    # websocket地址
-    WEBSOCKET_SERVER: ws://ws.example.com
-    # 文件服务地址
-    FILE_SERVER: http://minio.example.com
-    # hzero前端地址
-    HZERO_FRONT: http://hzero-front.example.com
-    # devops_websocket_key
-    DEVOPS_WEBSOCKET_SECRET_KEY: example
-
-## 资源请求和限制相关配置
+## server containers' resource requests and limits
 ## ref: http://kubernetes.io/docs/user-guide/compute-resources/
 ##
 resources:
-  limits:
-    # cpu: 100m
-    memory: 128Mi
-  requests:
-    # cpu: 100m
+  ## We usually recommend not to specify default resources and to leave this as a conscious
+  ## choice for the user. This also increases chances charts run on environments with little
+  ## resources, such as Minikube. If you do want to specify resources, uncomment the following
+  ## lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+
+  # -- The resources limits for the init container
+  limits: 
+    # cpu: 2
     memory: 128Mi
 
-## service 相关设置
-## ref: http://kubernetes.io/docs/user-guide/services/
+  # -- The requested resources for the init container
+  requests: 
+    # cpu: 500m
+    memory: 128Mi
+
+## Configure extra options for liveness, readiness and startup probes
+## ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#configure-probes
+##
+livenessProbe:
+  # -- Enable livenessProbe
+  enabled: true
+  # -- Initial delay seconds for livenessProbe
+  initialDelaySeconds: 60
+  # -- Period seconds for livenessProbe
+  periodSeconds: 5
+  # -- Timeout seconds for livenessProbe
+  timeoutSeconds: 3
+  # -- Success threshold for livenessProbe
+  successThreshold: 1
+  # -- Failure threshold for livenessProbe
+  failureThreshold: 5
+readinessProbe:
+  # -- Enable readinessProbe
+  enabled: true
+  # -- Initial delay seconds for readinessProbe
+  initialDelaySeconds: 5
+  # -- Period seconds for readinessProbe
+  periodSeconds: 5
+  # -- Timeout seconds for readinessProbe
+  timeoutSeconds: 3
+  # -- Success threshold for readinessProbe
+  successThreshold: 1
+  # -- Failure threshold for readinessProbe
+  failureThreshold: 5
+startupProbe:
+  # -- Enable startupProbe
+  enabled: false
+  # -- Initial delay seconds for startupProbe
+  initialDelaySeconds: 0
+  # -- Period seconds for startupProbe
+  periodSeconds: 5
+  # -- Timeout seconds for startupProbe
+  timeoutSeconds: 3
+  # -- Success threshold for startupProbe
+  successThreshold: 1
+  # -- Failure threshold for startupProbe
+  failureThreshold: 60
+
+## Custom Liveness, Readiness, and Startup probes for server
+##
+# customLivenessProbe -- Custom Liveness
+customLivenessProbe: {}
+# -- Custom Readiness
+customReadinessProbe: {}
+# -- Custom Startup probes
+customStartupProbe: {}
+
+# -- Extra volumes to add to the server statefulset
+##
+extraVolumes: []
+
+# -- Extra volume mounts to add to server containers
+##
+extraVolumeMounts: []
+
+# -- Add init containers to the server pods.
+## e.g:
+## initContainers:
+##   - name: your-image-name
+##     image: your-image
+##     imagePullPolicy: Always
+##     ports:
+##       - name: portname
+##         containerPort: 1234
+##
+initContainers: {}
+
+# -- Add sidecars to the server pods.
+## e.g:
+## sidecars:
+##   - name: your-image-name
+##     image: your-image
+##     imagePullPolicy: Always
+##     ports:
+##       - name: portname
+##         containerPort: 1234
+##
+sidecars: {}
+
+## server Service properties
 ##
 service:
-  # 是否启用 service 暴露本服务
+  # -- Set to true to enable service record generation
+  ##
   enabled: true
-  # Service 名称
-  name: choerodon-front
-  # Service 类型
+  # -- server Service type
+  ##
   type: ClusterIP
-  # 指定 service 的 clusterIP
-  clusterIP: ~
-  # 端口设置
-  ports:
-    # 服务端口
-    http:
-      port: 8080
-      nodePort: 30118
-  ## externalIPs 设置
-  # externalIPs:
-  #   - externalIp1
+  # -- server Service port
+  ##
+  port: 
+    server: 8080
+  # -- Specify the nodePort value for the LoadBalancer and NodePort service types.
+  ## ref: https://kubernetes.io/docs/concepts/services-networking/service/#type-nodeport
+  ##
+  nodePort:
+    server: 30158
+  # -- loadBalancerIP for the server Service (optional, cloud specific)
+  ## ref: http://kubernetes.io/docs/user-guide/services/#type-loadbalancer
+  ##
+  loadBalancerIP:
+  # -- Load Balancer sources
+  ## https://kubernetes.io/docs/tasks/access-application-cluster/configure-cloud-provider-firewall/#restrict-access-for-loadbalancer-service
+  ## e.g:
+  ## loadBalancerSourceRanges:
+  ##   - 10.10.10.0/24
+  ##
+  loadBalancerSourceRanges: []
+  # -- Enable client source IP preservation
+  ## ref http://kubernetes.io/docs/tasks/access-application-cluster/create-external-load-balancer/#preserving-the-client-source-ip
+  ##
+  externalTrafficPolicy: Cluster
+  # -- Provide any additional annotations which may be required. This can be used to
+  # set the LoadBalancer service type to internal only.
+  ## ref: https://kubernetes.io/docs/concepts/services-networking/service/#internal-load-balancer
+  ##
   annotations: {}
 
-# 是否收集日志至EFK
-logs:
-  enabled: false
-  # 日志收集格式
-  parser: nginx
-
-## Ingress 相关配置
-## ref: https://kubernetes.io/docs/concepts/services-networking/ingress/
+## Discourse ingress parameters
+## ref: https://kubernetes.io/docs/user-guide/ingress/
 ##
 ingress:
+  # -- Enable ingress record generation for Discourse
+  ##
   enabled: false
-  annotations: {}
-    # kubernetes.io/ingress.class: nginx
-    # kubernetes.io/tls-acme: "true"
-    # nginx.ingress.kubernetes.io/whitelist-source-range: 0.0.0.0/0
+  # -- IngressClass that will be be used to implement the Ingress (Kubernetes 1.18+)
+  ## This is supported in Kubernetes 1.18+ and required if you have more than one IngressClass marked as the default for your cluster .
+  ## ref: https://kubernetes.io/blog/2020/04/02/improvements-to-the-ingress-api-in-kubernetes-1.18/
+  ##
+  ingressClassName: ""
+  # -- Ingress path type
+  ##
+  pathType: ImplementationSpecific
+  # -- Force Ingress API version (automatically detected if not set)
+  ##
+  apiVersion: ""
+  # -- Default host for the ingress record
+  ##
+  hostname: server.local
+  # -- Default path for the ingress record
+  ## NOTE: You may need to set this to '/*' in order to use this with ALB ingress controllers
+  ##
   path: /
-  host: choerodon.example.com
-  tls: []
-  # - secretName: choerodon-example-tls
-  #   hosts:
-  #   - choerodon.example.com
+  # -- Additional annotations for the Ingress resource. To enable certificate autogeneration, place here your cert-manager annotations.
+  ## Use this parameter to set the required annotations for cert-manager, see
+  ## ref: https://cert-manager.io/docs/usage/ingress/#supported-annotations
+  ## e.g:
+  ## annotations:
+  ##   kubernetes.io/ingress.class: nginx
+  ##   cert-manager.io/cluster-issuer: cluster-issuer-name
+  ##
+  annotations: {}
+  # -- Enable TLS configuration for the host defined at `ingress.hostname` parameter
+  ## TLS certificates will be retrieved from a TLS secret with name: `{{- printf "%s-tls" .Values.ingress.hostname }}`
+  ## You can:
+  ##   - Use the `ingress.secrets` parameter to create this TLS secret
+  ##   - Relay on cert-manager to create it by setting the corresponding annotations
+  ##   - Relay on Helm to create self-signed certificates by setting `ingress.selfSigned=true`
+  ##
+  tls: false
+  # -- Create a TLS secret for this ingress record using self-signed certificates generated by Helm
+  ##
+  selfSigned: false
+  # -- An array with additional hostname(s) to be covered with the ingress record
+  ## e.g:
+  ## extraHosts:
+  ##   - name: discourse.local
+  ##     path: /
+  ##
+  extraHosts: []
+  # -- An array with additional arbitrary paths that may need to be added to the ingress under the main host
+  ## e.g:
+  ## extraPaths:
+  ## - path: /*
+  ##   backend:
+  ##     serviceName: ssl-redirect
+  ##     servicePort: use-annotation
+  ##
+  extraPaths: []
+  # -- TLS configuration for additional hostname(s) to be covered with this ingress record
+  ## ref: https://kubernetes.io/docs/concepts/services-networking/ingress/#tls
+  ## e.g:
+  ## extraTls:
+  ## - hosts:
+  ##     - discourse.local
+  ##   secretName: discourse.local-tls
+  ##
+  extraTls: []
+  # -- Custom TLS certificates as secrets
+  ## NOTE: 'key' and 'certificate' are expected in PEM format
+  ## NOTE: 'name' should line up with a 'secretName' set further up
+  ## If it is not set and you're using cert-manager, this is unneeded, as it will create a secret for you with valid certificates
+  ## If it is not set and you're NOT using cert-manager either, self-signed certificates will be created valid for 365 days
+  ## It is also possible to create and manage the certificates outside of this helm chart
+  ## Please see README.md for more information
+  ## e.g:
+  ## secrets:
+  ##   - name: discourse.local-tls
+  ##     key: |-
+  ##       -----BEGIN RSA PRIVATE KEY-----
+  ##       ...
+  ##       -----END RSA PRIVATE KEY-----
+  ##     certificate: |-
+  ##       -----BEGIN CERTIFICATE-----
+  ##       ...
+  ##       -----END CERTIFICATE-----
+  ##
+  secrets: []
+
+## Enable persistence using Persistent Volume Claims
+## ref: http://kubernetes.io/docs/user-guide/persistent-volumes/
+##
+persistence:
+  # -- If true, use a Persistent Volume Claim, If false, use emptyDir
+  ##
+  enabled: false
+  # -- Persistent Volume Storage Class
+  ## If defined, storageClassName: <storageClass>
+  ## If set to "-", storageClassName: "", which disables dynamic provisioning
+  ## If undefined (the default) or set to null, no storageClassName spec is
+  ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
+  ##   GKE, AWS & OpenStack)
+  ##
+  storageClass: 
+
+  # -- Data volume mount path
+  ##
+  mountPath: /data
+  # -- Persistent Volume Access Mode
+  ##
+  accessModes:
+    - ReadWriteOnce
+  # -- Persistent Volume size
+  ##
+  size: 8Gi
+  # -- Persistent Volume Claim annotations
+  ##
+  annotations: {}
+  # -- Enable persistence using an existing PVC
+  ##
+  existingClaim: 
+
+# -- Change the owner and group of the persistent volume mountpoint to runAsUser:fsGroup values from the securityContext section.
+volumePermissionsEnabled: false
+
+## Specifies whether a ServiceAccount should be created
+##
+serviceAccount:
+  # -- Set to true to create serviceAccount
+  ##
+  create: false
+  # -- The name of the ServiceAccount to use.
+  ## If not set and create is true, a name is generated using the common.names.fullname template
+  ##
+  name: ""
