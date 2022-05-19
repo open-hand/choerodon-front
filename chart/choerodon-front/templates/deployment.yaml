@@ -57,55 +57,62 @@ spec:
         fsGroup: {{ .Values.securityContext.fsGroup }}
       {{- end }}
       initContainers:
-        # - name: server-volume
-        #   image:  {{ include "server.image" . }}
-        #   imagePullPolicy: {{ .Values.image.pullPolicy | quote }}
-        #   command:
-        #     - /bin/sh
-        #     - -ecx
-        #     - |
-        #       cp -rfp /usr/share/nginx/html/. /opt/choerodon/html
-        #   securityContext:
-        #     runAsUser: {{ .Values.securityContext.runAsUser }}
-        #   volumeMounts:
-        #     - name: volume
-        #       mountPath: /opt/choerodon/html
-        # {{- if .Values.volumePermissionsEnabled }}
-        # - name: volume-permissions
-        #   image: {{ include "server.image" . }}
-        #   imagePullPolicy: {{ .Values.image.pullPolicy | quote }}
-        #   command:
-        #     - /bin/sh
-        #     - -ecx
-        #     - |
-        #       chown -R {{ .Values.securityContext.runAsUser }}:{{ .Values.securityContext.fsGroup }} /opt/choerodon/html;
-        #       {{- if .Values.persistence.enabled }}
-        #       chown -R {{ .Values.securityContext.runAsUser }}:{{ .Values.securityContext.fsGroup }} {{ .Values.persistence.mountPath }};
-        #       {{- end }}
-        #   securityContext:
-        #     runAsUser: 0
-        #   volumeMounts:
-        #     - name: volume
-        #       mountPath: /opt/choerodon/html
-        # {{- if .Values.persistence.enabled }}
-        #     - name: data
-        #       mountPath: {{ .Values.persistence.mountPath }}
-        # {{- end }}
-        # {{- end }}
+        - name: server-volume
+          image:  {{ include "server.image" . }}
+          imagePullPolicy: {{ .Values.image.pullPolicy | quote }}
+          command:
+            - /bin/sh
+            - -ecx
+            - |
+              cp -rfp /usr/share/nginx/html /opt/choerodon
+              cp -rfp /etc/nginx/conf.d/default.conf /opt/choerodon
+          securityContext:
+            runAsUser: {{ .Values.securityContext.runAsUser }}
+          volumeMounts:
+            - name: volume
+              mountPath: /opt/choerodon
+        {{- if .Values.volumePermissionsEnabled }}
+        - name: volume-permissions
+          image: {{ include "server.image" . }}
+          imagePullPolicy: {{ .Values.image.pullPolicy | quote }}
+          command:
+            - /bin/sh
+            - -ecx
+            - |
+              chown -R {{ .Values.securityContext.runAsUser }}:{{ .Values.securityContext.fsGroup }} /opt/choerodon;
+              {{- if .Values.persistence.enabled }}
+              chown -R {{ .Values.securityContext.runAsUser }}:{{ .Values.securityContext.fsGroup }} {{ .Values.persistence.mountPath }};
+              {{- end }}
+          securityContext:
+            runAsUser: 0
+          volumeMounts:
+            - name: volume
+              mountPath: /opt/choerodon
+        {{- if .Values.persistence.enabled }}
+            - name: data
+              mountPath: {{ .Values.persistence.mountPath }}
+        {{- end }}
+        {{- end }}
         {{- if .Values.initContainers }}
         {{- include "common.tplvalues.render" (dict "value" .Values.initContainers "context" $) | nindent 8 }}
         {{- end }}
       containers:
         - name: {{ .Chart.Name | quote }}
-          image: {{ include "server.image" . }}
+          image: {{ include "base.image" . }}
           imagePullPolicy: {{ .Values.base.pullPolicy | quote }}
-          # workingDir: {{ include "server.workingDir" . }}
+          workingDir: {{ include "server.workingDir" . }}
           {{- if .Values.securityContext.enabled }}
           securityContext:
             runAsUser: {{ .Values.securityContext.runAsUser }}
           {{- end }}
           {{- if .Values.command }}
           command: {{- include "common.tplvalues.render" (dict "value" .Values.command "context" $) | nindent 12 }}
+          {{- else }}
+          command: 
+          - /bin/bash
+          - -ex
+          - /usr/share/nginx/html/env.sh
+          - nginx -g "daemon off;"
           {{- end }}
           {{- if .Values.args }}
           args: {{- include "common.tplvalues.render" (dict "value" .Values.args "context" $) | nindent 12 }}
@@ -166,27 +173,31 @@ spec:
           {{- if .Values.resources }}
           resources: {{- toYaml .Values.resources | nindent 12 }}
           {{- end }}
-      #     volumeMounts:
-      #       - name: volume
-      #         mountPath: /usr/share/nginx/html
-      #       {{- if .Values.persistence.enabled }}
-      #       - name: data
-      #         mountPath: {{ .Values.persistence.mountPath }}
-      #       {{- end }}
-      #       {{- if .Values.extraVolumeMounts }}
-      #       {{- include "common.tplvalues.render" (dict "value" .Values.extraVolumeMounts "context" $) | nindent 12 }}
-      #       {{- end }}
+          volumeMounts:
+            - name: volume
+              mountPath: /usr/share/nginx/html
+              subPath: html
+            - name: volume
+              mountPath: /etc/nginx/conf.d/default.conf
+              subPath: default.conf
+            {{- if .Values.persistence.enabled }}
+            - name: data
+              mountPath: {{ .Values.persistence.mountPath }}
+            {{- end }}
+            {{- if .Values.extraVolumeMounts }}
+            {{- include "common.tplvalues.render" (dict "value" .Values.extraVolumeMounts "context" $) | nindent 12 }}
+            {{- end }}
         {{- if .Values.sidecars }}
         {{- include "common.tplvalues.render" (dict "value" .Values.sidecars "context" $) | nindent 8 }}
         {{- end }}
-      # volumes:
-      #   - name: volume
-      #     emptyDir: {}
-      #   {{- if .Values.persistence.enabled }}
-      #   - name: data
-      #     persistentVolumeClaim:
-      #       claimName: {{ include "server.claimName" . }}
-      #   {{- end }}
-      #   {{- if .Values.extraVolumes }}
-      #   {{- include "common.tplvalues.render" (dict "value" .Values.extraVolumes "context" $) | nindent 8 }}
-      #   {{- end }}
+      volumes:
+        - name: volume
+          emptyDir: {}
+        {{- if .Values.persistence.enabled }}
+        - name: data
+          persistentVolumeClaim:
+            claimName: {{ include "server.claimName" . }}
+        {{- end }}
+        {{- if .Values.extraVolumes }}
+        {{- include "common.tplvalues.render" (dict "value" .Values.extraVolumes "context" $) | nindent 8 }}
+        {{- end }}
