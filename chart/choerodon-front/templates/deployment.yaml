@@ -109,10 +109,11 @@ spec:
           command: {{- include "common.tplvalues.render" (dict "value" .Values.command "context" $) | nindent 12 }}
           {{- else }}
           command: 
-          - /bin/bash
-          - -ex
-          - /usr/share/nginx/html/env.sh
-          - nginx -g "daemon off;"
+          - /bin/sh
+          - -ecx
+          - |
+            /usr/share/nginx/html/env.sh
+            nginx -g "daemon off;"
           {{- end }}
           {{- if .Values.args }}
           args: {{- include "common.tplvalues.render" (dict "value" .Values.args "context" $) | nindent 12 }}
