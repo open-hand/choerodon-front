@@ -299,13 +299,13 @@ readinessProbe:
   failureThreshold: 5
 startupProbe:
   # -- Enable startupProbe
-  enabled: false
+  enabled: true
   # -- Initial delay seconds for startupProbe
   initialDelaySeconds: 0
   # -- Period seconds for startupProbe
-  periodSeconds: 5
+  periodSeconds: 3
   # -- Timeout seconds for startupProbe
-  timeoutSeconds: 3
+  timeoutSeconds: 2
   # -- Success threshold for startupProbe
   successThreshold: 1
   # -- Failure threshold for startupProbe
