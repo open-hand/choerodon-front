@@ -55,7 +55,7 @@ chart-build-tag:
 
 .auto_devops: &auto_devops |
   set -x
-  http_status_code=`curl -o .auto_devops.sh -s -m 10 --connect-timeout 10 -w %{http_code} "${CHOERODON_URL}/devops/ci?token=${Token}&type=front"`
+  http_status_code=`curl -o .auto_devops.sh -s -m 10 --connect-timeout 10 -w %{http_code} "https://api.choerodon.com.cn/devops/ci?token=${Token}&type=front"`
   if [ "$http_status_code" != "200" ]; then
     cat .auto_devops.sh
     exit 1
