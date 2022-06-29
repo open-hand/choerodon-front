@@ -10,6 +10,7 @@ variables:
 node-build:
   stage: node-build
   script:
+    - echo ${CHOERODON_URL}
     - export CI_COMMIT_TAG="${CI_COMMIT_TAG}-${CI_PIPELINE_ID}"
     - node -v
     - npm -v
