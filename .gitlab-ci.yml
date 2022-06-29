@@ -14,7 +14,7 @@ node-build:
     - npm config set "//${NPM_REPO}:_authToken" "${NPM_TOKEN}"
     - npm config set "//${NPM_REGISTRY}:_authToken" "${NPM_TOKEN}"
     - npm config set always-auth true
-    - npm install --registry "${NPM_REPO}"
+    - npm install --registry "https://${NPM_REPO}"
     - chmod -R 755 node_modules
     - npm run dist
     - cp -r src/main/resources/lib $CI_PROJECT_DIR/docker/lib
