@@ -56,6 +56,7 @@ env:
     HZERO_FRONT: http://hzero-front.example.com
     # devops_websocket_key
     DEVOPS_WEBSOCKET_SECRET_KEY: example
+    OPEN_SOURCE: true
 
 ## 资源请求和限制相关配置
 ## ref: http://kubernetes.io/docs/user-guide/compute-resources/
