@@ -20,7 +20,7 @@
     "@choerodon/boot": "0.23.3",
     "@choerodon/master": "1.1.5",
     "@choerodon/base": "1.1.1",
-    "@choerodon/devops": "1.1.5",
+    "@choerodon/devops": "1.1.6",
     "@choerodon/asgard": "1.1.0",
     "@choerodon/notify": "1.1.0",
     "@choerodon/manager": "1.1.0",
