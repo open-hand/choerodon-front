@@ -283,7 +283,7 @@ livenessProbe:
   # -- Success threshold for livenessProbe
   successThreshold: 1
   # -- Failure threshold for livenessProbe
-  failureThreshold: 5
+  failureThreshold: 2
 readinessProbe:
   # -- Enable readinessProbe
   enabled: true
