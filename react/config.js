@@ -11,7 +11,9 @@ const config = {
     '@choerodon/code-repo',
     '@choerodon/doc-repo',
     '@choerodon/prod-repo',
-    "@choerodon/hrds-qa"
+    "@choerodon/hrds-qa",
+    "@choerodon/base",
+    "@choerodon/base-business"
   ]
 };
 
