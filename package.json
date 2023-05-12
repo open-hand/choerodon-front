@@ -21,6 +21,8 @@
     "@choerodon/asgard": "2.0.0",
     "@choerodon/boot": "1.2.1",
     "@choerodon/devops": "2.0.8",
+    "@choerodon/base": "2.0.4",
+    "@choerodon/base-business": "2.0.6",
     "@choerodon/manager": "2.0.1",
     "@choerodon/agile": "2.0.10",
     "@choerodon/master": "2.0.13",
