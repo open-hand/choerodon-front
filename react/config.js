@@ -6,7 +6,6 @@ const config = {
     '@choerodon/waterfall',
     '@choerodon/asgard',
     '@choerodon/devops',
-    '@choerodon/base-business',
     '@choerodon/manager',
     '@choerodon/agile',
     '@choerodon/notify',
