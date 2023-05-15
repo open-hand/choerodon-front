@@ -17,7 +17,9 @@
     "react-dom": "16.14.0"
   },
   "dependencies": {
+    "@choerodon/workflow": "2.0.1",
     "@choerodon/knowledge": "2.0.12",
+    "@choerodon/waterfall": "2.0.5",
     "@choerodon/asgard": "2.0.0",
     "@choerodon/boot": "1.2.1",
     "@choerodon/devops": "2.0.8",
@@ -28,9 +30,7 @@
     "@choerodon/notify": "2.0.3",
     "@choerodon/testmanager": "2.0.2",
     "@choerodon/code-repo": "2.0.3",
-    "@choerodon/doc-repo": "1.3.0",
-    "@choerodon/prod-repo": "1.3.0",
-    "@choerodon/hrds-qa": "2.0.0"
+    "@choerodon/prod-repo": "1.3.0"
   },
   "devDependencies": {
     "esbuild-webpack-plugin": "^1.0.5",
