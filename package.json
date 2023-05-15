@@ -17,6 +17,7 @@
     "react-dom": "16.14.0"
   },
   "dependencies": {
+    "@choerodon/base": "2.0.4",
     "@choerodon/workflow": "2.0.1",
     "@choerodon/knowledge": "2.0.12",
     "@choerodon/waterfall": "2.0.5",
