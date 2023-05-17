@@ -1,7 +1,7 @@
 const config = {
   local: true, //是否为本地开发
   modules: [
-    '@choerodon/base-business',
+    '@choerodon/base',
     '@choerodon/workflow',
     '@choerodon/knowledge',
     '@choerodon/waterfall',
