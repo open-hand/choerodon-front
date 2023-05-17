@@ -26,7 +26,7 @@
     "@choerodon/devops": "2.0.8",
     "@choerodon/manager": "2.0.1",
     "@choerodon/agile": "2.0.10",
-    "@choerodon/master": "2.0.13",
+    "@choerodon/master": "2.0.14",
     "@choerodon/notify": "2.0.3",
     "@choerodon/testmanager": "2.0.2",
     "@choerodon/code-repo": "2.0.3",
