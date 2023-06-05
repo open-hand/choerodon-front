@@ -116,6 +116,7 @@ extraEnv:
   onlyofficeApi: http://onlyoffice.example.com
   BUSINESS: true
   NON_INSTALL_MARKET: true
+  OPEN_SOURCE: true
 
 # -- ConfigMap with extra environment variables
 ##
