@@ -1,7 +1,7 @@
 {
   "name": "@choerodon/choerodon-front",
   "routeName": "c7n",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Choerodon Front",
   "scripts": {
     "start": "choerodon-front-boot start --config ./react/config.js",
@@ -17,7 +17,7 @@
     "react-dom": "16.14.0"
   },
   "dependencies": {
-    "@choerodon/base": "2.0.5",
+    "@choerodon/base": "2.0.6",
     "@choerodon/asgard": "2.0.1",
     "@choerodon/boot": "1.2.1",
     "@choerodon/devops": "2.0.9",
